@@ -19,13 +19,18 @@ $(WASI_SDK_TGZ):
 	wget $(WASI_SDK)
 #	curl $(WASI_SDK) --output $@
 
-ldc/.touch: ldc
-	cd ldc; \
+ldc/.touch: ldc-subdate
+	cd ldc/runtime; \
 	ldc-build-runtime --ninja "--dFlags=-mtriple=wasm32-wasi" \
 	--ldcSrcDir=../ \
 	CMAKE_TOOLCHAIN_FILE="$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake" \
         WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
 	touch $@
+
+#--linkerFlags=-L$(WASI_SDK_PREFIX) \
+
+ldc-subdate: ldc
+#	cd $<;  git submodule update --init --recursive
 
 ldc:
 	git clone https://github.com/ldc-developers/ldc.git
