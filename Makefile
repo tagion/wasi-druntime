@@ -1,12 +1,12 @@
 include git.mk
 
-WASI_SDK_FOLDER:=wasi-sdk-8
+WASI_SDK_FOLDER:=wasi-sdk
 WASI_SDK_TGZ:=wasi-sdk-8.0-linux.tar.gz
 WASI_SDK:="https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_FOLDER)/$(WASI_SDK_TGZ)"
 
-export WASI_SDK_PREFIX=wasi-sdk-8.0
+export WASI_SDK_PREFIX=$(REPOROOT)/wasi-sdk
 
-all: $(WASI_SDK_PREFIX)/.touch ldc/.touch
+all: ldc/.touch
 
 $(WASI_SDK_PREFIX)/.touch:$(WASI_SDK_PREFIX)
 	touch $@
