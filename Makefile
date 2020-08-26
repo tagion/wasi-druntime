@@ -35,6 +35,8 @@ ldc-subdate: ldc
 ldc:
 	git clone https://github.com/ldc-developers/ldc.git
 
+subdate:
+	git submodule update --init --recursive
 
 clean:
 	rm -fR $(WASI_SDK_FOLDER)

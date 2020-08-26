@@ -1,0 +1,3 @@
+[submodule "ldc"]
+	path = ldc
+	url = https://github.com/tagion/ldc.git
