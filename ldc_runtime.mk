@@ -25,12 +25,8 @@ ALL+=$(WASI_BUILD)/.touch
 
 $(WASI_BUILD)/.touch:
 	cd $(LDC_RUNTIME_ROOT); ldc-build-runtime $(LDC_RUNTIME)
-	touch $@
-	# cd ldc/runtime; \
-	# ldc-build-runtime --ninja --dFlags=-mtriple=wasm32-wasi \
-	# --buildDir=$(WASI_BUILD) \
-	# --ldcSrcDir=../ \
-        # --linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi \
-	# CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake \
-        # WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
-	# touch $@
+
+CLEAN+=clean-ldc-runtime
+
+clean-ldc-runtime:
+	rm -fR $(WASI_BUILD)

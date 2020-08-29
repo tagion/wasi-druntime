@@ -24,7 +24,13 @@ include ldc_runtime.mk
 help-main:
 	@echo "Usage "
 	@echo
+	@echo "make subdate   : If the repo been clone with out --recursive then run the"
+	@echo
+	@echo "make spull     : All the submodules can be pull by"
+	@echo
 	@echo "make all       : Build all"
+	@echo
+	@echo "make help      : Prints this help text"
 	@echo
 	@echo "make info      : Prints the Link and Compile setting"
 	@echo
@@ -32,38 +38,17 @@ help-main:
 	@echo
 	@echo "make clean     : Clean the build"
 	@echo
-#	@echo "make PRECMD=   : Verbose mode"
-#	@echo "                 make PRECMD= <tag> # Prints the command while executing"
-#	@echo
 
 info: $(INFO)
 
 all: $(ALL)
-#llvm-build: $(LLVM_BUILD)/.touch
-
-# $(WASI_SDK_TGZ):
-# 	wget $(WASI_SDK)
-#	curl $(WASI_SDK) --output $@
-
-
-#--linkerFlags=-L$(WASI_SDK_PREFIX) \
-#	C_SYSTEM_LIBS=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/
-# 	--cFlags=-I$(REPOROOT)/wasi-libc/sysroot/include \
-
-# ldc-subdate: ldc
-# #	cd $<;  git submodule update --init --recursive
-
-# ldc:
-# 	git clone https://github.com/ldc-developers/ldc.git
-
 
 subdate:
 	git submodule update --init --recursive
 
+spull:
+	git pull --recurse-submodules
 
 clean: $(CLEAN)
-#	rm -fR $(WASI_BUILD)
-
 
 proper: $(CLEAN) $(PROPER)
-#	rm -fR $(WASI_SDK_FOLDER)
