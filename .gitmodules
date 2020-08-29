@@ -4,9 +4,6 @@
 [submodule "wasi-sdk"]
 	path = wasi-sdk
 	url = https://github.com/tagion/wasi-sdk.git
-[submodule "llvm-project"]
-	path = llvm-project
-	url = https://github.com/tagion/llvm-project.git
 [submodule "wasi-libc"]
 	path = wasi-libc
 	url = https://github.com/tagion/wasi-libc.git
