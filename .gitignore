@@ -4,3 +4,13 @@
 
 # Make
 .touch
+
+#
+*.gz
+*.xz
+
+wasi-sdk-*
+
+*.wasm
+
+*.src

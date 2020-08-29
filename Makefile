@@ -1,29 +1,46 @@
 include git.mk
 include setup.mk
 
-WASI_SDK_FOLDER:=wasi-sdk-8.0
-WASI_SDK_TGZ:=wasi-sdk-8.0-linux.tar.gz
-WASI_SDK:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_FOLDER)/$(WASI_SDK_TGZ)
+HELP+=help-main
+#INFO+=info-main
+
+# WASI_SDK_FOLDER:=wasi-sdk-8.0
+# WASI_SDK_TGZ:=wasi-sdk-8.0-linux.tar.gz
+# WASI_SDK:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK)/$(WASI_SDK_TGZ)
 
 WASI_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
-export WASI_SDK_PREFIX=$(REPOROOT)/wasi-sdk-8.0
+# export WASI_SDK_PREFIX=$(REPOROOT)/wasi-sdk-8.0
 
-all: $(WASI_SDK_PREFIX)/.touch ldc/.touch
+.PHONY: help info
 
-$(WASI_SDK_PREFIX)/.touch:$(WASI_SDK_PREFIX)
-	touch $@
-
-$(WASI_SDK_PREFIX): $(WASI_SDK_TGZ)
-	tar -xzvf $<
-
-include llvm.mk
+help: $(HELP)
 
 include wasi_libc.mk
 
-llvm-build: $(LLVM_BUILD)/.touch
+include wasi_sdk.mk
 
-$(WASI_SDK_TGZ):
-	wget $(WASI_SDK)
+help-main:
+	@echo "Usage "
+	@echo
+	@echo "make all       : Build all"
+	@echo
+	@echo "make info      : Prints the Link and Compile setting"
+	@echo
+	@echo "make proper    : Clean all"
+	@echo
+	@echo "make clean     : Clean the build"
+	@echo
+#	@echo "make PRECMD=   : Verbose mode"
+#	@echo "                 make PRECMD= <tag> # Prints the command while executing"
+	@echo
+
+info: $(INFO)
+
+all: $(ALL)
+#llvm-build: $(LLVM_BUILD)/.touch
+
+# $(WASI_SDK_TGZ):
+# 	wget $(WASI_SDK)
 #	curl $(WASI_SDK) --output $@
 
 ldc/.touch:
@@ -51,11 +68,9 @@ subdate:
 	git submodule update --init --recursive
 
 
-PROPER+=clean
-
-clean:
-	rm -fR $(WASI_BUILD)
+clean: $(CLEAN)
+#	rm -fR $(WASI_BUILD)
 
 
-proper: $(PROPER)
-	rm -fR $(WASI_SDK_FOLDER)
+proper: $(CLEAN) $(PROPER)
+#	rm -fR $(WASI_SDK_FOLDER)

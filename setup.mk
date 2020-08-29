@@ -1,2 +1,4 @@
 
 TOOLS:=$(REPOROOT)/tools
+
+WASI_SDK_VERSION:=8.0
