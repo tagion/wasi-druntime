@@ -25,12 +25,15 @@ help-wasi-sdk:
 ALL+=$(WASI_SDK_PREFIX)/.touch
 
 INFO+=info-wask-sdk
-info-wask-sdk: $(INFO)
+
+info-wask-sdk:
 	@echo "Setup parameters for wasi-sdk"
 	@echo "WASI_SDK       =$(WASI_SDK)"
 	@echo "WASI_SDK_PREFIX=$(WASI_SDK_FOLDER)"
 	@echo "WASI_SDK_TGZ   =$(WASI_SDK_TGZ)"
 	@echo "WASI_SDK_URL   =$(WASI_SDK_URL)"
+	@echo
+
 
 $(WASI_SDK_PREFIX)/.touch:$(WASI_SDK_PREFIX)
 	touch $@

@@ -19,6 +19,8 @@ include wasi_libc.mk
 
 include wasi_sdk.mk
 
+include ldc_runtime.mk
+
 help-main:
 	@echo "Usage "
 	@echo
@@ -32,7 +34,7 @@ help-main:
 	@echo
 #	@echo "make PRECMD=   : Verbose mode"
 #	@echo "                 make PRECMD= <tag> # Prints the command while executing"
-	@echo
+#	@echo
 
 info: $(INFO)
 
@@ -43,15 +45,6 @@ all: $(ALL)
 # 	wget $(WASI_SDK)
 #	curl $(WASI_SDK) --output $@
 
-ldc/.touch:
-	cd ldc/runtime; \
-	ldc-build-runtime --ninja --dFlags=-mtriple=wasm32-wasi \
-	--buildDir=$(WASI_BUILD) \
-	--ldcSrcDir=../ \
-        --linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi \
-	CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake \
-        WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
-	touch $@
 
 #--linkerFlags=-L$(WASI_SDK_PREFIX) \
 #	C_SYSTEM_LIBS=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/
