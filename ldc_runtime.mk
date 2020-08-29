@@ -20,11 +20,37 @@ info-ldc-runtime:
 	@echo LDC_RUNTIME     =$(LDC_RUNTIME)
 	@echo
 
-ALL+=$(WASI_BUILD)/.touch
-
+ALL+=$(WASI_BUILD)/.touch $(WASI_BUILD)/ldc2.conf
 
 $(WASI_BUILD)/.touch:
 	cd $(LDC_RUNTIME_ROOT); ldc-build-runtime $(LDC_RUNTIME)
+
+
+define LDC_CONF
+"^wasm(32|64)-":
+  {
+      switches = [
+          "-defaultlib=c,druntime-ldc,phobos2-ldc",
+          "-link-internally",
+      ];
+      post-switches = [
+       "-I$(LDC_RUNTIME_ROOT)/druntime/src>",
+       "-I$(LDC_RUNTIME_ROOT)/phobos>",
+      ],
+      lib-dirs = ["$(WASI_BUILD)/lib",
+                  "$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/"];
+  };
+endef
+
+export LDC_CONF_TEXT=$(LDC_CONF)
+
+ldc2-conf: $(WASI_BUILD)/ldc2.conf
+	@echo $<
+
+
+$(WASI_BUILD)/ldc2.conf:
+	@echo "$${LDC_CONF_TEXT}" > $@
+
 
 CLEAN+=clean-ldc-runtime
 

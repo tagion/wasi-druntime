@@ -2,11 +2,6 @@
 #
 # Make file for wasi-sdk
 #
-# WASI_SDK_TGZ:=wasi-sdk-$(LLVM_VERSION)-linux.tar.gz
-# WASI_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$(LLVM_VERSION)/$(WASI_TGZ)
-# #wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$(LLVM_VERSION)/wasi-sdk-$(LLVM_VERSION)-linux.tar.gz
-# #tar xvf wasi-sdk-$(LLVM_VERSION)-linux.tar.gz
-
 
 WASI_SDK_VERSION?=8.0
 WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION)
@@ -17,14 +12,10 @@ export WASI_SDK_PREFIX=$(REPOROOT)/$(WASI_SDK)
 
 HELP+=help-wasi-sdk
 help-wasi-sdk:
-#	@echo "make info      : Prints the Link and Compile setting"
-#	@echo
-#	@echo "make proper    : Clean all"
-#	@echo
 
 ALL+=$(WASI_SDK_PREFIX)/.touch
 
-INFO+=info-wask-sdk
+lINFO+=info-wask-sdk
 
 info-wask-sdk:
 	@echo "Setup parameters for wasi-sdk"
@@ -46,6 +37,7 @@ $(WASI_SDK_TGZ):
 
 clean-wasm-sdk:
 	rm -fR $(WASI_SDK_FOLDER)
+
 
 CLEAN+=clean-wasm-sdk
 
