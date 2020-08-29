@@ -13,6 +13,12 @@ The binary can be found [wasi-sdk][https://github.com/WebAssembly/wasi-sdk/relea
 sudo dpkg -i wasi-sdk_8.0_amd64.deb
 ```
 
+### Instruction ###
+
+```bash
+make help
+```
+
 ### Building the tool ###
 
 First the submodules needs to be installed
