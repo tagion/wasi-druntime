@@ -1,11 +1,11 @@
 
 LDC_RUNTIME_ROOT:=$(REPOROOT)/ldc/runtime
 LDC_RUNTIME+=
-LDC_RUNTIME+=--ninja
+#LDC_RUNTIME+=--ninja
 LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
 LDC_RUNTIME+=--buildDir=$(WASI_BUILD)
 LDC_RUNTIME+=--ldcSrcDir=../
-LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi
+#LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi
 LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 LDC_RUNTIME+=WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
 
