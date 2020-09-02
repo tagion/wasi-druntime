@@ -21,6 +21,8 @@ include wasi_sdk.mk
 
 include ldc_runtime.mk
 
+include hello_wasm.mk
+
 help-main:
 	@echo "Usage "
 	@echo

@@ -16,3 +16,5 @@ wasi-sdk-*
 *.src
 
 ldc-build-runtime.*
+
+*.o
