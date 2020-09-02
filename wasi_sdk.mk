@@ -8,6 +8,8 @@ WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION)
 WASI_SDK_FOLDER:=wasi-sdk-8
 WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION)-linux.tar.gz
 WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_FOLDER)/$(WASI_SDK_TGZ)
+
+WASI_SDK_POSIX_PATCH=sed -i 's|set(CMAKE_SYSTEM_NAME Wasm)|set(CMAKE_SYSTEM_NAME Linux)|' $(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 export WASI_SDK_PREFIX=$(REPOROOT)/$(WASI_SDK)
 
 HELP+=help-wasi-sdk
@@ -27,6 +29,7 @@ info-wask-sdk:
 
 
 $(WASI_SDK_PREFIX)/.touch:$(WASI_SDK_PREFIX)
+	$(WASI_SDK_POSIX_PATCH)
 	touch $@
 
 $(WASI_SDK_PREFIX): $(WASI_SDK_TGZ)
