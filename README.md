@@ -33,7 +33,13 @@ The project is build by
 make all
 ```
 
-**WIP:**
+## Test program ##
+
+The build flow will generate a simple test program in D and it can be run as follows.
+
+```bash
+wasmer hello_wasm.wasm
+```
 
 
 
