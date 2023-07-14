@@ -13,7 +13,7 @@ WASI_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
 
 .PHONY: help info
 
-help: $(HELP)
+
 
 include wasi_libc.mk
 
@@ -23,8 +23,10 @@ include ldc_runtime.mk
 
 include hello_wasm.mk
 
-help-main:
-	@echo "Usage "
+include llvm.mk 
+
+help:
+	@echo "Usage " 
 	@echo
 	@echo "make subdate   : If the repo been clone with out --recursive then run the"
 	@echo
@@ -41,9 +43,16 @@ help-main:
 	@echo "make clean     : Clean the build"
 	@echo
 
-info: $(INFO)
 
-all: $(ALL)
+info: 
+	@echo $@
+
+all: prebuild run
+
+.PHONY: run
+
+run:
+	@echo "Done"
 
 subdate:
 	git submodule update --init --recursive
@@ -51,6 +60,8 @@ subdate:
 spull:
 	git pull --recurse-submodules
 
-clean: $(CLEAN)
+clean: 
+	@echo $@ 
 
-proper: $(CLEAN) $(PROPER)
+proper: clean
+	@echo $@

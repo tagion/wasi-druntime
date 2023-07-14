@@ -15,10 +15,16 @@ LLVM_SRC_TGZ:=llvm-9.0.1.src.tar.xz
 LLVM_SRC_URL:=https://github.com/ldc-developers/llvm-project/releases/download/ldc-v9.0.1/$(LLVM_SRC_TGZ)
 LLVM_SRC:=$(REPOROOT)/llvm-9.0.1.src
 
-$(LLVM_BUILD)/.touch: $(LLVM_SRC) $(LLVM_TOOLS)
+all: $(LLVM_BUILD)/.done
+
+llvm: $(LLVM_BUILD)/.done
+
+$(LLVM_BUILD)/.done: $(LLVM_SRC) $(LLVM_TOOLS)
+	@echo Building llvm ldc 
 	mkdir -p $(@D)
 	cd $(@D); cmake $(LLVM_FLAGS); ninja install
 	touch $@
+	@echo $@
 
 $(LLVM_TOOLS):
 	mkdir -p $(LLVM_TOOLS)
@@ -27,8 +33,25 @@ $(LLVM_SRC):
 	curl -OL $(LLVM_SRC_URL)
 	tar -xf $(LLVM_SRC_TGZ)
 
-llvm-clean:
+info-llvm:
+	@echo "$@"
+	@echo LLVM_SRC_URL $(LLVM_SRC_URL)
+	@echo LLVM_SRC_TGZ $(LLVM_SRC_TGZ)
+	@echo LLVM_SRC $(LLVM_SRC)
+	@echo LLVM_FLAGS $(LLVM_FLAGS)
+	@echo LLVM_BUILD $(LLVM_BUILD)
+
+.PHONY: info-llvm
+
+info: info-llvm
+
+
+clean-llvm:
+	@echo "clean $@"
 	rm -fR $(LLVM_SRC)
 	rm -f $(LLVM_SRC_TGZ)
 
-PROPER+=$(llvm-clean)
+.PHONY: clean-llvm
+
+proper: clean-llvm
+

@@ -21,7 +21,7 @@ LDFLAGS+=--export=__data_end
 LDFLAGS+=--export=__heap_base
 LDFLAGS+=--allow-undefined
 
-ALL+=wasm-run
+run: wasm-run
 
 xxx:
 	echo $(DFILES)

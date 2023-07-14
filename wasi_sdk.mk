@@ -12,14 +12,16 @@ WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_
 WASI_SDK_POSIX_PATCH=sed -i 's|set(CMAKE_SYSTEM_NAME Wasm)|set(CMAKE_SYSTEM_NAME Linux)|' $(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 export WASI_SDK_PREFIX=$(REPOROOT)/$(WASI_SDK)
 
-HELP+=help-wasi-sdk
 help-wasi-sdk:
+	@echo $@
 
-ALL+=$(WASI_SDK_PREFIX)/.touch
+.PHONY: help-wasi-sdk
 
-lINFO+=info-wask-sdk
+help: help-wasi-sdk
 
-info-wask-sdk:
+prebuild: $(WASI_SDK_PREFIX)/.done
+
+info-wasi-sdk:
 	@echo "Setup parameters for wasi-sdk"
 	@echo "WASI_SDK       =$(WASI_SDK)"
 	@echo "WASI_SDK_PREFIX=$(WASI_SDK_FOLDER)"
@@ -27,8 +29,12 @@ info-wask-sdk:
 	@echo "WASI_SDK_URL   =$(WASI_SDK_URL)"
 	@echo
 
+.PHONY: info-wasi-sdk
 
-$(WASI_SDK_PREFIX)/.touch:$(WASI_SDK_PREFIX)
+info: info-wasi-sdk
+
+
+$(WASI_SDK_PREFIX)/.done:$(WASI_SDK_PREFIX)
 	$(WASI_SDK_POSIX_PATCH)
 	touch $@
 
@@ -41,10 +47,14 @@ $(WASI_SDK_TGZ):
 clean-wasm-sdk:
 	rm -fR $(WASI_SDK_FOLDER)
 
+.PHONY: clean-wasm-sdk
 
-CLEAN+=clean-wasm-sdk
+clean: clean-wasm-sdk
 
 proper-wask-sdk:
 	rm -f $(WASI_SDK_TGZ)
 
-PROPER+=proper-wask-sdk
+.PHONY: proper-wask-sdk
+
+proper: proper-wask-sdk
+

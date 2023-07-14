@@ -9,10 +9,18 @@ LDC_RUNTIME+=--ldcSrcDir=../
 LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 LDC_RUNTIME+=WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
 
-HELP+=help-ldc-runtime
 help-ldc-runtime:
+	@echo "Usage $@"
+	@echo
+	@echo make info-ldc-runtime - Print setting for the ldc-build-runtime
+	@echo
+	@echo make clean-ldc-runtime - Remove the build
+	@echo 
 
-INFO+=info-ldc-runtime
+.PHONY: help-ldc-runtime
+
+help: help-ldc-runtime
+
 
 info-ldc-runtime:
 	@echo "Setup parameters for ldc-build-runtime"
@@ -20,10 +28,17 @@ info-ldc-runtime:
 	@echo LDC_RUNTIME     =$(LDC_RUNTIME)
 	@echo
 
-ALL+=$(WASI_BUILD)/.touch $(WASI_BUILD)/ldc2.conf
+ALL+=$(WASI_BUILD)/.done $(WASI_BUILD)/ldc2.conf
 
-$(WASI_BUILD)/.touch:
+.PHONY: ldc-build-runtime
+
+info: info-ldc-runtime
+
+prebuild: $(WASI_BUILD)/.done
+
+$(WASI_BUILD)/.done:
 	cd $(LDC_RUNTIME_ROOT); ldc-build-runtime $(LDC_RUNTIME)
+	touch $@
 
 
 define LDC_CONF
@@ -55,4 +70,11 @@ $(WASI_BUILD)/ldc2.conf:
 CLEAN+=clean-ldc-runtime
 
 clean-ldc-runtime:
+	@echo "clean $@"
 	rm -fR $(WASI_BUILD)
+
+.PHONY: clean-ldc-runtime
+
+clean: clean-ldc-runtime
+
+
