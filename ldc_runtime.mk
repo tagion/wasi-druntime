@@ -28,9 +28,11 @@ info-ldc-runtime:
 	@echo LDC_RUNTIME     =$(LDC_RUNTIME)
 	@echo
 
-ALL+=$(WASI_BUILD)/.done $(WASI_BUILD)/ldc2.conf
+ldc-runtime: $(WASI_BUILD)/.done $(WASI_BUILD)/ldc2.conf
 
-.PHONY: ldc-build-runtime
+.PHONY: ldc-runtime
+
+prebuild: ldc-runtime
 
 info: info-ldc-runtime
 

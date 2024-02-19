@@ -1,4 +1,10 @@
 
 TOOLS:=$(REPOROOT)/tools
 
-WASI_SDK_VERSION:=8.0
+LDC_BUILD_RUNTIME?=$(shell which ldc-build-runtime)
+WASI_SDK_VERSION:=21
+
+ifeq ($(LDC_BUILD_RUNTIME),)
+$(error missing ldc-build-runtime)
+endif
+

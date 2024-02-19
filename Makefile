@@ -2,18 +2,14 @@ include git.mk
 include setup.mk
 
 HELP+=help-main
-#INFO+=info-main
-
-# WASI_SDK_FOLDER:=wasi-sdk-8.0
-# WASI_SDK_TGZ:=wasi-sdk-8.0-linux.tar.gz
-# WASI_SDK:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK)/$(WASI_SDK_TGZ)
 
 WASI_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
-# export WASI_SDK_PREFIX=$(REPOROOT)/wasi-sdk-8.0
 
 .PHONY: help info
 
 
+
+all:
 
 include wasi_libc.mk
 
@@ -23,7 +19,7 @@ include ldc_runtime.mk
 
 include hello_wasm.mk
 
-include llvm.mk 
+#include llvm.mk 
 
 help:
 	@echo "Usage " 
@@ -65,3 +61,5 @@ clean:
 
 proper: clean
 	@echo $@
+	rm -fR build
+

@@ -1,5 +1,4 @@
 
-WASI_BIN:=$(REPOROOT)/wasi-sdk-8.0/bin
 
 WASM_AR:=$(WASI_BIN)/llvm-ar
 WASM_NM:=$(WASI_BIN)/llvm-nm
