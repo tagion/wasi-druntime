@@ -1,12 +1,16 @@
 
 LDC_RUNTIME_ROOT:=$(REPOROOT)/ldc/runtime
-LDC_RUNTIME+=
+#LDC_RUNTIME+=
 #LDC_RUNTIME+=--ninja
+ifdef NATIVE
+LDC_RUNTIME+=--buildDir=$(RUNTIME_BUILD)
+else 
 LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
-LDC_RUNTIME+=--buildDir=$(WASI_BUILD)
+LDC_RUNTIME+=--buildDir=$(RUNTIME_BUILD)
+LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
+endif
 LDC_RUNTIME+=--ldcSrcDir=../
 #LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi
-LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 LDC_RUNTIME+=WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
 
 help-ldc-runtime:
@@ -28,7 +32,7 @@ info-ldc-runtime:
 	@echo LDC_RUNTIME     =$(LDC_RUNTIME)
 	@echo
 
-ldc-runtime: $(WASI_BUILD)/.done $(WASI_BUILD)/ldc2.conf
+ldc-runtime: $(RUNTIME_BUILD)/.done $(RUNTIME_BUILD)/ldc2.conf
 
 .PHONY: ldc-runtime
 
@@ -36,9 +40,9 @@ prebuild: ldc-runtime
 
 info: info-ldc-runtime
 
-prebuild: $(WASI_BUILD)/.done
+prebuild: $(RUNTIME_BUILD)/.done
 
-$(WASI_BUILD)/.done:
+$(RUNTIME_BUILD)/.done:
 	cd $(LDC_RUNTIME_ROOT); ldc-build-runtime $(LDC_RUNTIME)
 	touch $@
 
@@ -54,18 +58,18 @@ define LDC_CONF
        "-I$(LDC_RUNTIME_ROOT)/druntime/src>",
        "-I$(LDC_RUNTIME_ROOT)/phobos>",
       ],
-      lib-dirs = ["$(WASI_BUILD)/lib",
+      lib-dirs = ["$(RUNTIME_BUILD)/lib",
                   "$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/"];
   };
 endef
 
 export LDC_CONF_TEXT=$(LDC_CONF)
 
-ldc2-conf: $(WASI_BUILD)/ldc2.conf
+ldc2-conf: $(RUNTIME_BUILD)/ldc2.conf
 	@echo $<
 
 
-$(WASI_BUILD)/ldc2.conf:
+$(RUNTIME_BUILD)/ldc2.conf:
 	@echo "$${LDC_CONF_TEXT}" > $@
 
 
@@ -73,7 +77,7 @@ CLEAN+=clean-ldc-runtime
 
 clean-ldc-runtime:
 	@echo "clean $@"
-	rm -fR $(WASI_BUILD)
+	rm -fR $(RUNTIME_BUILD)
 
 .PHONY: clean-ldc-runtime
 

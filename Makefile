@@ -3,7 +3,7 @@ include setup.mk
 
 HELP+=help-main
 
-WASI_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
+#WASI_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
 
 .PHONY: help info
 
