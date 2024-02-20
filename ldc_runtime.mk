@@ -5,11 +5,13 @@ LDC_RUNTIME_ROOT:=$(REPOROOT)/ldc/runtime
 ifdef NATIVE
 LDC_RUNTIME+=--buildDir=$(RUNTIME_BUILD)
 else 
-LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
+#LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
+#LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
+LDC_RUNTIME+=--dFlags=-mtriple=wasm32-linux-wasi
 LDC_RUNTIME+=--buildDir=$(RUNTIME_BUILD)
 LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
 endif
-LDC_RUNTIME+=--ldcSrcDir=../
+LDC_RUNTIME+=--ldcSrcDir=ldc
 #LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi
 LDC_RUNTIME+=WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
 
@@ -43,7 +45,7 @@ info: info-ldc-runtime
 prebuild: $(RUNTIME_BUILD)/.done
 
 $(RUNTIME_BUILD)/.done:
-	cd $(LDC_RUNTIME_ROOT); ldc-build-runtime $(LDC_RUNTIME)
+	ldc-build-runtime $(LDC_RUNTIME)
 	touch $@
 
 
