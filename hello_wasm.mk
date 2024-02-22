@@ -37,7 +37,7 @@ run: wasm-run
 wasm-env:
 	@echo DFILES=$(DFILES)
 	@echo OBJS=$(OBJS)
-	@echo LIBS=$(OBJS)
+	@echo LIBS=$(LIBS)
 	@echo DFLAGS=$(DFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
 

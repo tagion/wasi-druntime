@@ -4,15 +4,16 @@
 .SECONDEXPANSIOM:
 
  #/home/carsten/work/legacy-wasm-druntime/ldc/runtime/druntime/src && 
-DRUNTIME_SRC:=/home/carsten/work/legacy-wasm-druntime/ldc/runtime/druntime/src 
-PHOBOS_SRC:=/home/carsten/work/legacy-wasm-druntime/ldc/runtime/phobos
-TARGET_DIR:=/home/carsten/work/legacy-wasm-druntime/ldc-build-runtime.wasi
+
+DRUNTIME_SRC:=$(REPOROOT)/ldc/runtime/druntime/src 
+PHOBOS_SRC:=$(REPOROOT)/ldc/runtime/phobos
+TARGET_DIR:=$(REPOROOT)/ldc-build-runtime.wasi
 OBJ_DIR:=$(TARGET_DIR)/objects
 LIB_DIR:=$(TARGET_DIR)/lib
 
 LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
 LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
-DC:=/home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
+DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi
 #LIB_DFLAGS+=-c 
 LIB_DFLAGS+=--output-o 
@@ -57,7 +58,7 @@ ways: $(LIB_DIR)/.way
 	mkdir -p $(@D)
 	touch $@
 
-$(LIB_DIR)/%.a: ways 
+$(LIB_DIR)/%.a: ways prebuild
 	cd $(SRC_DIR); $(DC) $(LIB_DFLAGS) $(DINC) $(DFILES) -of $@
 
 #compile: ways 

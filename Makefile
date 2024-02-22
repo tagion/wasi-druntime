@@ -52,6 +52,8 @@ help:
 info: 
 	@echo $@
 
+prebuild: subdate
+
 all: prebuild
 
 ifndef NATIVE
