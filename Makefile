@@ -46,6 +46,8 @@ help:
 	@echo "make clean     : Clean the build"
 	@echo
 
+%/.done:
+	touch $@
 
 info: 
 	@echo $@
@@ -60,7 +62,7 @@ endif
 run:
 	@echo "Done"
 
-subdate:
+subdate: $(REPOROOT)/.done
 	git submodule update --init --recursive --depth 1
 
 spull:
@@ -80,6 +82,7 @@ else
 proper: clean clean-build
 	@echo $@
 	rm -fR build
+	rm -f $(REPOROOT)/.done
 	$(MAKE) NATIVE=1 proper
-
+	
 endif

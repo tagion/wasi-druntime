@@ -18,3 +18,4 @@ wasi-sdk-*
 ldc-build-runtime.*
 
 *.o
+.done
