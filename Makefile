@@ -61,7 +61,7 @@ run:
 	@echo "Done"
 
 subdate:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --depth 1
 
 spull:
 	git pull --recurse-submodules
