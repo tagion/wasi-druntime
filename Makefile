@@ -11,15 +11,20 @@ HELP+=help-main
 
 all:
 
+native:
+	$(MAKE) all NATIVE=1
+
 include wasi_libc.mk
 
 include wasi_sdk.mk
-
+ifdef USE_LDC_BUILD_RUNTIME
 include ldc_runtime.mk
+else
+include wasi_druntime.mk 
+all: druntime phobos
+endif
 
 include hello_wasm.mk
-
-#include llvm.mk 
 
 help:
 	@echo "Usage " 
@@ -43,8 +48,11 @@ help:
 info: 
 	@echo $@
 
-all: prebuild run
+all: prebuild
 
+ifndef NATIVE
+all: run
+endif
 .PHONY: run
 
 run:
@@ -59,7 +67,17 @@ spull:
 clean: 
 	@echo $@ 
 
-proper: clean
-	@echo $@
+clean-build:
 	rm -fR build
 
+ifdef NATIVE
+proper: clean clean-build
+
+else
+
+proper: clean clean-build
+	@echo $@
+	rm -fR build
+	$(MAKE) NATIVE=1 proper
+
+endif
