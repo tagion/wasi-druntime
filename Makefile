@@ -14,6 +14,8 @@ all:
 native:
 	$(MAKE) all NATIVE=1
 
+include llvm.mk 
+
 include wasi_libc.mk
 
 include wasi_sdk.mk

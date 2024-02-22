@@ -18,9 +18,9 @@ DFLAGS+=-c
 LIBS+=$(LIB_DIR)/libdruntime-ldc.a
 LIBS+=$(LIB_DIR)/libphobos2-ldc.a
 LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
-LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
-LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
-LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
+#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
+#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
+#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
 
 LDFLAGS+=--export=__data_end
 LDFLAGS+=--export=__heap_base

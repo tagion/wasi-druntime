@@ -1,13 +1,17 @@
-LLVM_VERSION?=13.0.0
+#LLVM_VERSION?=15.0.7
+LLVM_VERSION?=16.0.6
+#LLVM_VERSION?=17.0.6
+#LLVM_VERSION?=13.0.0
 #LLVM_VERSION?=14.0.0
 #LLVM_VERSION?=14.0.3
 #LLVM_VERSION?=15.0.7
 #LLVM_VERSION?=9.0.1
 LLVM_MAKE_FLAGS=-j 8
 
-LLVM_TOOLS:=$(TOOLS)/llvm
+LLVM_TOOLS:=$(TOOLS)/llvm-$(LLVM_VERSION)
+LLVM_SRC:=$(REPOROOT)/llvm-$(LLVM_VERSION).src
 
-LLVM_BUILD:=build/llvm
+LLVM_BUILD:=$(LLVM_SRC)/build
 
 #LLVM_FLAGS+=-G Ninja
 LLVM_FLAGS+=$(LLVM_SRC)
@@ -23,9 +27,8 @@ LLVM_FLAGS+=-DLLVM_INCLUDE_BENCHMARKS=OFF
 
 LLVM_SRC_TGZ:=llvm-$(LLVM_VERSION).src.tar.xz
 LLVM_SRC_URL:=https://github.com/ldc-developers/llvm-project/releases/download/ldc-v$(LLVM_VERSION)/$(LLVM_SRC_TGZ)
-LLVM_SRC:=$(REPOROOT)/llvm-$(LLVM_VERSION).src
 
-all: $(LLVM_BUILD)/.done
+#all: $(LLVM_BUILD)/.done
 
 llvm: $(LLVM_BUILD)/.done
 
@@ -64,8 +67,9 @@ clean-llvm:
 
 .PHONY: clean-llvm
 
-proper: clean-llvm
+proper-llvm: clean-llvm
 	@echo $@
 	rm -fR $(LLVM_TOOLS)
 
+proper: proper-llvm
 
