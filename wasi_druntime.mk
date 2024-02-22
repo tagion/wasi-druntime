@@ -58,7 +58,7 @@ ways: $(LIB_DIR)/.way
 	mkdir -p $(@D)
 	touch $@
 
-$(LIB_DIR)/%.a: ways prebuild
+$(LIB_DIR)/%.a: ways 
 	cd $(SRC_DIR); $(DC) $(LIB_DFLAGS) $(DINC) $(DFILES) -of $@
 
 #compile: ways 
