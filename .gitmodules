@@ -1,6 +1,6 @@
 [submodule "ldc"]
 	path = ldc
-	url = https://github.com/tagion/ldc.git
+	url = git@github.com:tagion/ldc.git
 [submodule "wasi-libc"]
 	path = wasi-libc
-	url = https://github.com/tagion/wasi-libc.git
+	url = git@github.com:tagion/wasi-libc.git

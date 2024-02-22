@@ -13,6 +13,10 @@ DFLAGS+=-I$(LDC_RUNTIME_ROOT)/phobos
 DFLAGS+=-mtriple=wasm32-unknown-wasi
 DFLAGS+=-c
 
+DFLAGS+=-O3 -release -femit-local-var-lifetime 
+DFLAGS+=-flto=thin 
+
+
 #LIBS+=$(addprefix $(OBJ_DIR),$($(call dfiles,$(DRUNTIME_SRC)):.d=.o))
 #LIBS+=$(addprefix $(OBJ_DIR),$($(call dfiles,$(PHOBOS_SRC)):.d=.o))
 LIBS+=$(LIB_DIR)/libdruntime-ldc.a

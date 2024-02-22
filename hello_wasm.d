@@ -46,7 +46,7 @@ extern(C) void _start() {
 
 
 void main() {
-    printf("In main");
+    printf("In main\n");
     int[] array;
     printf("Yes it works!\n");
     int i;

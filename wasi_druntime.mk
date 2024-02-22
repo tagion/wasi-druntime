@@ -3,7 +3,8 @@
 .ONESHELL:
 .SECONDEXPANSIOM:
 
- #/home/carsten/work/legacy-wasm-druntime/ldc/runtime/druntime/src && 
+# This switch print out the missing wasi function in runtime
+#LIB_DFLAGS+=-d-version=WASI_MISSING
 
 DRUNTIME_SRC:=$(REPOROOT)/ldc/runtime/druntime/src 
 PHOBOS_SRC:=$(REPOROOT)/ldc/runtime/phobos
@@ -15,19 +16,18 @@ LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
 LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi
-#LIB_DFLAGS+=-c 
 LIB_DFLAGS+=--output-o 
 LIB_DFLAGS+=-conf= 
 LIB_DFLAGS+=-w -de 
 LIB_DFLAGS+=-preview=dip1000 -preview=dtorfields -preview=fieldwise 
-#LIB_DFLAGS+=-d-version=Posix
 LIB_DFLAGS+=-od=$(TARGET_DIR)/objects 
 LIB_DFLAGS+=-op 
 LIB_DFLAGS+=-oq
+LIB_DFLAGS+=--lib
 
 #LIB_DFLAGS+=-mtriple=wasm32-linux-wasi
-#-O3 -release -femit-local-var-lifetime 
-LIB_DFLAGS+=--lib
+LIB_DFLAGS+=-O3 -release -femit-local-var-lifetime 
+LIB_DFLAGS+=-flto=thin 
 
 WASI_FILTER+=-a -not -path "*/linux/*" -a -not -path "*/windows/*" -a -not -path "*/tools/*" -a -not -path "*/test/*" -a -not -name "unittest.d" 
 WASI_FILTER+=-a -not -name "eh_msvc.d"
