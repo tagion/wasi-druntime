@@ -6,8 +6,8 @@
 # This switch print out the missing wasi function in runtime
 #LIB_DFLAGS+=-d-version=WASI_MISSING
 
-DRUNTIME_SRC:=$(REPOROOT)/ldc/runtime/druntime/src 
-PHOBOS_SRC:=$(REPOROOT)/ldc/runtime/phobos
+DRUNTIME_SRC:=ldc/runtime/druntime/src 
+PHOBOS_SRC:=ldc/runtime/phobos
 TARGET_DIR:=$(REPOROOT)/ldc-build-runtime.wasi
 OBJ_DIR:=$(TARGET_DIR)/objects
 LIB_DIR:=$(TARGET_DIR)/lib
@@ -46,10 +46,9 @@ $(LIBDRUNTIME): SRC_DIR=$(DRUNTIME_SRC)
 libphobos2: $(LIBPHOBOS2) 
 
 $(LIBPHOBOS2): DFILES=$(call dfiles,$(PHOBOS_SRC))
-$(LIBPHOBOS2): DINC+=-I$(DRUNTIME_SRC)
-$(LIBPHOBOS2): DINC+=-I$(PHOBOS_SRC)
-$(LIBPHOBOS2): SRC_DIR=$(PHOBOS_SRC)
-#phobos2: compile
+$(LIBPHOBOS2): DINC+=-I$(REPOROOT)/$(DRUNTIME_SRC)
+$(LIBPHOBOS2): DINC+=-I$(REPOROOT)/$(PHOBOS_SRC)
+$(LIBPHOBOS2): SRC_DIR=$(REPOROOT)/$(PHOBOS_SRC)
 
 ways: $(OBJ_DIR)/.way
 ways: $(LIB_DIR)/.way
@@ -72,6 +71,9 @@ check-phobos:
 
 dfiles-druntime:
 	find $(DRUNTIME_SRC) -name "*.d" $(WASI_FILTER) -printf "%P\n"
+
+dfiles-phobos:
+	find $(PHOBOS_SRC) -name "*.d" $(WASI_FILTER) -printf "%P\n"
 
 clean-druntime:
 	rm -f $(LIB_DIR)/libdruntime-ldc.a
