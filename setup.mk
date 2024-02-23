@@ -1,7 +1,7 @@
 
 TOOLS:=$(REPOROOT)/tools
+include $(REPOROOT)/wasi_sdk_setup.mk
 
-WASI_SDK_VERSION?=21
 
 ifdef NATIVE
 	RUNTIME_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp

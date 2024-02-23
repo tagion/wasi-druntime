@@ -3,11 +3,11 @@
 # Make file for wasi-sdk
 #
 
-WASI_SDK_VERSION?=21
+#WASI_SDK_VERSION?=21
 #WASI_SDK_VERSION?=8.0
 #WASI_SDK_VERSION?=20
-WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
-WASI_SDK_FOLDER:=wasi-sdk-$(WASI_SDK_VERSION)
+#WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
+#WASI_SDK_FOLDER:=wasi-sdk-$(WASI_SDK_VERSION)
 WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-linux.tar.gz
 #WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_FOLDER)/$(WASI_SDK_TGZ)
 
