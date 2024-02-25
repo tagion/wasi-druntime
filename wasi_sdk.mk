@@ -7,9 +7,9 @@
 #WASI_SDK_VERSION?=8.0
 #WASI_SDK_VERSION?=20
 #WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
-#WASI_SDK_FOLDER:=wasi-sdk-$(WASI_SDK_VERSION)
+#WASI_SDK_ROOT:=wasi-sdk-$(WASI_SDK_VERSION)
 WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-linux.tar.gz
-#WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_FOLDER)/$(WASI_SDK_TGZ)
+#WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_ROOT)/$(WASI_SDK_TGZ)
 
 WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$(WASI_SDK_VERSION)/$(WASI_SDK_TGZ)
 #https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sdk-20.0-linux.tar.gz
@@ -36,7 +36,7 @@ info-wasi-sdk:
 	@echo "Setup parameters for wasi-sdk"
 	@echo "WASI_BIN       =$(WASI_BIN)"
 	@echo "WASI_SDK       =$(WASI_SDK)"
-	@echo "WASI_SDK_PREFIX=$(WASI_SDK_FOLDER)"
+	@echo "WASI_SDK_PREFIX=$(WASI_SDK_ROOT)"
 	@echo "WASI_SDK_TGZ   =$(WASI_SDK_TGZ)"
 	@echo "WASI_SDK_URL   =$(WASI_SDK_URL)"
 	@echo
@@ -57,7 +57,7 @@ $(WASI_SDK_TGZ):
 	wget $(WASI_SDK_URL)
 
 clean-wasi-sdk:
-	rm -fR $(WASI_SDK_FOLDER)
+	rm -fR $(WASI_SDK_ROOT)
 
 .PHONY: clean-wasm-sdk
 

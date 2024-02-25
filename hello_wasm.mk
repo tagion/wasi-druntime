@@ -44,6 +44,7 @@ wasm-env:
 	@echo LIBS=$(LIBS)
 	@echo DFLAGS=$(DFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
+	@echo WASI_SDK_PREFIX=$(WASI_SDK_PREFIX)
 
 wasm-run: $(MAIN)
 	wasmer $<
