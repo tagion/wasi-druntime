@@ -8,7 +8,7 @@
 
 DRUNTIME_SRC:=ldc/runtime/druntime/src 
 PHOBOS_SRC:=ldc/runtime/phobos
-TARGET_DIR:=$(REPOROOT)/ldc-build-runtime.wasi
+TARGET_DIR?=$(REPOROOT)/ldc-build-runtime.wasi
 OBJ_DIR:=$(TARGET_DIR)/objects
 LIB_DIR:=$(TARGET_DIR)/lib
 
