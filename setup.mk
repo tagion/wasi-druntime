@@ -7,9 +7,9 @@ ifdef NATIVE
 	RUNTIME_BUILD:=$(REPOROOT)/ldc-build-runtime.tmp
 	USE_LDC_BUILD_RUNTIME?=1
 else
-	RUNTIME_BUILD:=$(REPOROOT)/ldc-build-runtime.wasi
+	RUNTIME_BUILD?=$(REPOROOT)/ldc-build-runtime.wasi
 	WASI_BUILD:=$(RUNTIME_BUILD)
-	LDC_RUNTIME_ROOT:=ldc/runtime
+	LDC_RUNTIME_ROOT?=ldc/runtime
 endif
 
 ifdef USE_LDC_BUILD_RUNTIME
