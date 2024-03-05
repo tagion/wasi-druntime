@@ -4,7 +4,7 @@ DC?=ldc2
 
 MAIN:=hello_wasm.wasm
 DFILES+=hello_wasm.d
-OBJS:=${DFILES:.d=.o}
+DOBJS:=${DFILES:.d=.o}
 
 DFLAGS+=-defaultlib=c,druntime-ldc,phobos2-ldc
 DFLAGS+=-I$(LDC_RUNTIME_ROOT)/druntime/src
@@ -40,7 +40,7 @@ run: wasm-run
 
 wasm-env:
 	@echo DFILES=$(DFILES)
-	@echo OBJS=$(OBJS)
+	@echo DOBJS=$(DOBJS)
 	@echo LIBS=$(LIBS)
 	@echo DFLAGS=$(DFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
@@ -49,16 +49,16 @@ wasm-env:
 wasm-run: $(MAIN)
 	wasmer $<
 
-$(MAIN): $(OBJS) $(LIBS) 
+$(MAIN): $(DOBJS) $(LIBS) 
 	$(WASMLD) $< $(LDFLAGS) $(LIBS) $(LIB_WASI)  -o $@
 
-$(OBJS): $(DFILES)
+$(DOBJS): $(DFILES)
 	$(DC) $< $(DFLAGS)
 
 CLEAN+=clean-test
 
 clean-test:
-	rm -f $(OBJS)
+	rm -f $(DOBJS)
 	rm -f $(MAIN)
 
 clean: clean-test
