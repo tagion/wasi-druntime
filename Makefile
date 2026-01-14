@@ -67,7 +67,7 @@ run:
 	@echo "Done"
 
 subdate: $(REPOROOT)/.done
-	git submodule update --init --recursive 
+	#git submodule update --init --recursive 
 
 spull:
 	git pull --recurse-submodules
