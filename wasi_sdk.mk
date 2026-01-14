@@ -8,7 +8,7 @@
 #WASI_SDK_VERSION?=20
 #WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
 #WASI_SDK_ROOT:=wasi-sdk-$(WASI_SDK_VERSION)
-WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-x86_64-linux.tar.gz
+WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-linux.tar.gz
 #WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_ROOT)/$(WASI_SDK_TGZ)
 
 WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$(WASI_SDK_VERSION)/$(WASI_SDK_TGZ)
