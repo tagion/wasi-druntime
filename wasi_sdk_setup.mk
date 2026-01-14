@@ -1,5 +1,5 @@
 
 WASI_SDK_VERSION?=29
-WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0-x86_64-linux
+WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
 WASI_SDK_ROOT:=wasi-sdk-$(WASI_SDK_VERSION)
-WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-x86_64-linux.tar.gz
+
