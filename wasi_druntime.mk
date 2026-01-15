@@ -35,7 +35,13 @@ LIB_DFLAGS+=-flto=thin
 
 WASI_FILTER+=-a -not -path "*/linux/*"
 WASI_FILTER+=-a -not -path "*/windows/*"
+WASI_FILTER+=-a -not -path "*/solaris/*"
+WASI_FILTER+=-a -not -path "*/openbsd/*"
+
+WASI_FILTER+=-a -not -path "*/experimental/*"
 WASI_FILTER+=-a -not -path "*/phobos/tools/*"
+WASI_FILTER+=-a -not -path "*/phobos/tools/*"
+
 WASI_FILTER+=-a -not -path "*/tests/*"
 WASI_FILTER+=-a -not -path "*/test/*"
 WASI_FILTER+=-a -not -name "unittest.d"
