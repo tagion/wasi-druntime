@@ -9,7 +9,7 @@ DLANG_PATH=$(HOME)/dlang/$(LDC_NAME)
 LDC_BIN:=$(DLANG_PATH)/bin
 LDC_WASI:=$(LDC_BIN)/ldc2
 LDC_SOURCE:=$(DLANG_PATH)/activate
-DC?=$(LDC_BIN)/ldc2
+DC:=$(LDC_BIN)/ldc2
 LDC_CONF?=$(DLANG_PATH)/etc/ldc2.conf
 
 $(DLANG_INSTALL):

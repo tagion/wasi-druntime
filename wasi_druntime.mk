@@ -18,7 +18,10 @@ LIBDC:=$(LIB_DIR)/libdc.a
 LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
 LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 
-DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
+ifndef DC
+$(error compiler DC need to be defined)
+endif
+#DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi
 LIB_DFLAGS+=--output-o 
 LIB_DFLAGS+=-conf=$(LDC_CONF) 
@@ -122,5 +125,3 @@ clean-druntime:
 	rm -fR $(OBJ_DIR)
 
 clean: clean-druntime
-
-
