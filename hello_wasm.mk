@@ -40,7 +40,7 @@ run: wasm-run
 
 all: $(LIBS) $(MAIN)
 
-wasm-env:
+env-wasm:
 	@echo DFILES=$(DFILES)
 	@echo DOBJS=$(DOBJS)
 	@echo LIBS=$(LIBS)
@@ -51,10 +51,13 @@ wasm-env:
 wasm-run: $(MAIN)
 	wasmer $<
 
+wasm: $(MAIN)
+
 $(MAIN): $(DOBJS) $(LIBS) 
 	$(WASMLD) $< $(LDFLAGS) $(LIBS) $(LIB_WASI)  -o $@
 
 $(DOBJS): $(DFILES)
+	source $(LDC_SOURCE)
 	$(DC) $< $(DFLAGS)
 
 CLEAN+=clean-test

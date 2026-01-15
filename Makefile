@@ -1,3 +1,7 @@
+.SUFFIXES:
+.ONESHELL:
+.SECONDARY:
+
 include git.mk
 include setup.mk
 
@@ -13,6 +17,8 @@ all:
 
 native:
 	$(MAKE) all NATIVE=1
+
+include setup_dlang_toolchain.mk
 
 include llvm.mk 
 

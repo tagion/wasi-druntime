@@ -21,7 +21,7 @@ LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi
 LIB_DFLAGS+=--output-o 
-LIB_DFLAGS+=-conf= 
+LIB_DFLAGS+=-conf=$(LDC_CONF) 
 LIB_DFLAGS+=-w -de 
 LIB_DFLAGS+=-preview=dip1000 -preview=dtorfields -preview=fieldwise 
 LIB_DFLAGS+=-od=$(TARGET_DIR)/objects 
