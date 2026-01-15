@@ -8,15 +8,17 @@
 #WASI_SDK_VERSION?=20
 #WASI_SDK:=wasi-sdk-$(WASI_SDK_VERSION).0
 #WASI_SDK_ROOT:=wasi-sdk-$(WASI_SDK_VERSION)
-WASI_SDK_TGZ:=wasi-sdk-$(WASI_SDK_VERSION).0-linux.tar.gz
+#WASI_NAME:=wasi-sdk-$(WASI_SDK_VERSION).0-x86_64-linux
+WASI_SDK_TGZ:=$(WASI_SDK_PLATFORM).tar.gz
 #WASI_SDK_URL:=https://github.com/CraneStation/wasi-sdk/releases/download/$(WASI_SDK_ROOT)/$(WASI_SDK_TGZ)
 
-WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$(WASI_SDK_VERSION)/$(WASI_SDK_TGZ)
+WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/$(WASI_SDK)/$(WASI_SDK_TGZ)
 #https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sdk-20.0-linux.tar.gz
-#WASI_SDK_POSIX_PATCH=sed -i 's|set(CMAKE_SYSTEM_NAME Wasm)|set(CMAKE_SYSTEM_NAME Linux)|' $(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
+#WASI_SDK_POSIX_PATCH=sed -i 's|set(CMAKE_SYSTEM_NAME Wasm)|set(CMAKE_SYSTEM_NAME Linux)|' $(WASI_SDK_ROOT)/share/cmake/wasi-sdk.cmake
 
-export WASI_SDK_PREFIX=$(REPOROOT)/$(WASI_SDK)
-export WASI_BIN=$(WASI_SDK_PREFIX)/bin
+export WASI_SDK_ROOT=$(REPOROOT)/$(WASI_SDK_PLATFORM)
+export WASI_BIN=$(WASI_SDK_ROOT)/bin
+export CC:=$(WASI_BIN)/clang
 
 help-wasi-sdk:
 	@echo $@
@@ -26,19 +28,20 @@ help-wasi-sdk:
 help: help-wasi-sdk
 
 
-wasi-sdk: $(WASI_SDK_PREFIX)/.done
+wasi-sdk: $(WASI_SDK_ROOT)/.done
 
 .PHONY: wasi-sdk
 
 prebuild: wasi-sdk
 
-info-wasi-sdk:
+env-wasi-sdk:
 	@echo "Setup parameters for wasi-sdk"
 	@echo "WASI_BIN       =$(WASI_BIN)"
 	@echo "WASI_SDK       =$(WASI_SDK)"
-	@echo "WASI_SDK_PREFIX=$(WASI_SDK_ROOT)"
+	@echo "WASI_SDK_ROOT  =$(WASI_SDK_ROOT)"
 	@echo "WASI_SDK_TGZ   =$(WASI_SDK_TGZ)"
 	@echo "WASI_SDK_URL   =$(WASI_SDK_URL)"
+	@echo "CC             =$(CC)"
 	@echo
 
 .PHONY: info-wasi-sdk
@@ -46,11 +49,11 @@ info-wasi-sdk:
 info: info-wasi-sdk
 
 
-$(WASI_SDK_PREFIX)/.done:$(WASI_SDK_PREFIX)
+$(WASI_SDK_ROOT)/.done:$(WASI_SDK_ROOT)
 	$(WASI_SDK_POSIX_PATCH)
 	touch $@
 
-$(WASI_SDK_PREFIX): $(WASI_SDK_TGZ)
+$(WASI_SDK_ROOT): $(WASI_SDK_TGZ)
 	tar -xzvf $<
 
 $(WASI_SDK_TGZ):
@@ -59,9 +62,9 @@ $(WASI_SDK_TGZ):
 clean-wasi-sdk:
 	rm -fR $(WASI_SDK_ROOT)
 
-.PHONY: clean-wasm-sdk
+.PHONY: clean-wasi-sdk
 
-clean: clean-wasm-sdk
+clean: clean-wasi-sdk
 
 proper-wasi-sdk:
 	@echo $@

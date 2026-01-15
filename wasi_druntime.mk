@@ -13,6 +13,7 @@ TARGET_DIR?=$(CURDIR)/ldc-build-runtime.wasi
 OBJ_DIR:=$(TARGET_DIR)/objects
 LIB_DIR:=$(TARGET_DIR)/lib
 OBJC_DIR:=$(OBJ_DIR)/c
+CC?=$(shell which clang)
 
 LIBDC:=$(LIB_DIR)/libdc.a
 LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
@@ -89,16 +90,15 @@ ways: $(LIB_DIR)/.way
 
 $(COBJS)&: $(CFILES)| $(OBJ_DIR)/c/.way  
 	@echo C objects 
-	cd $(OBJ_DIR)/c; clang $^ -c $(CFLAGS) -Wno-implicit-function-declaration
+	cd $(OBJ_DIR)/c; $(CC) $^ -c $(CFLAGS) -Wno-implicit-function-declaration
 	#touch $@
 	
-
 $(OBJDC): $(OBJ_DIR)/c/.way 
-	cd $(OBJ_DIR)/c; clang $(CFLAGS) $(CFILES)
+	cd $(OBJ_DIR)/c; $(CC) $(CFLAGS) $(CFILES)
 
 #$(LIBDC): $(COBJS)
 #	ar -r $@ $< 
-	#cd $(OBJ_DIR)/c; clang $(CFLAGS) $(CFILES)
+	#cd $(OBJ_DIR)/c; $(CC) $(CFLAGS) $(CFILES)
 		
 
 $(LIB_DIR)/%.a: ways
@@ -125,3 +125,7 @@ clean-druntime:
 	rm -fR $(OBJ_DIR)
 
 clean: clean-druntime
+
+env-druntime:
+	@echo "CC =$(CC)"
+	@echo "OBJDC=$(OBJDC)"
