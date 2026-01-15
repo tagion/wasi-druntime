@@ -40,7 +40,7 @@ extern(C) void* __tls_get_addr(tls_index* ti) nothrow @nogc {
 }
 
 extern(C) int _Dmain(char[][] args);
-extern(C) void _start() {
+extern(C) export void _start() {
     printf("Hello _start\n");
     import rt.dmain2;
     const run_ptr=&_d_run_main;

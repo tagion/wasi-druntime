@@ -9,11 +9,11 @@ else
 #LDC_RUNTIME+=--dFlags=-mtriple=wasm32-wasi
 LDC_RUNTIME+=--dFlags=-mtriple=wasm32-linux-wasi
 LDC_RUNTIME+=--buildDir=$(RUNTIME_BUILD)
-LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_PREFIX)/share/cmake/wasi-sdk.cmake
+LDC_RUNTIME+=CMAKE_TOOLCHAIN_FILE=$(WASI_SDK_ROOT)/share/cmake/wasi-sdk.cmake
 endif
 LDC_RUNTIME+=--ldcSrcDir=ldc
-#LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_PREFIX)/wasi-libc/sysroot/lib/wasm32-wasi
-LDC_RUNTIME+=WASI_SDK_PREFIX=$(WASI_SDK_PREFIX) BUILD_SHARED_LIBS=OFF
+#LDC_RUNTIME+=--linkerFlags=-L$(WASI_SDK_ROOT)/wasi-libc/sysroot/lib/wasm32-wasi
+LDC_RUNTIME+=WASI_SDK_ROOT=$(WASI_SDK_ROOT) BUILD_SHARED_LIBS=OFF
 
 help-ldc-runtime:
 	@echo "Usage $@"
@@ -61,7 +61,7 @@ define LDC_CONF
        "-I$(LDC_RUNTIME_ROOT)/phobos>",
       ],
       lib-dirs = ["$(RUNTIME_BUILD)/lib",
-                  "$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/"];
+                  "$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/"];
   };
 endef
 

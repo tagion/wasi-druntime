@@ -1,6 +1,6 @@
 # tools director
 TOOLS:=$(abspath $(REPOROOT)/tools)
-LDC_VERSION?=1.41.0
+LDC_VERSION?=1.37.0
 DLANG:=$(TOOLS)/dlang
 DLANG_INSTALL:=$(DLANG)/install.sh 
 DLANG_INSTALL_URL:=https://dlang.org/install.sh
@@ -24,6 +24,8 @@ $(DLANG_PATH): $(DLANG_INSTALL)
 	$(DLANG_INSTALL) install $(LDC_NAME)
 
 install-dlang: $(DLANG_PATH)
+
+.PHONY: install-dlang
 
 env-dlang:
 	@echo "DLANG_PATH=$(DLANG_PATH)"

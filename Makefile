@@ -61,6 +61,7 @@ info:
 	@echo $@
 
 prebuild: subdate
+prebuild: install-dlang
 
 all: prebuild
 

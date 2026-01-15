@@ -21,10 +21,10 @@ DFLAGS+=-flto=thin
 #LIBS+=$(addprefix $(OBJ_DIR),$($(call dfiles,$(PHOBOS_SRC)):.d=.o))
 LIBS+=$(LIB_DIR)/libdruntime-ldc.a
 LIBS+=$(LIB_DIR)/libphobos2-ldc.a
-LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
+LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
 
 LDFLAGS+=--export=__data_end
 LDFLAGS+=--export=__heap_base
@@ -46,7 +46,7 @@ env-wasm:
 	@echo LIBS=$(LIBS)
 	@echo DFLAGS=$(DFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
-	@echo WASI_SDK_PREFIX=$(WASI_SDK_PREFIX)
+	@echo WASI_SDK_ROOT=$(WASI_SDK_ROOT)
 
 wasm-run: $(MAIN)
 	wasmer $<
