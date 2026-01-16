@@ -132,5 +132,12 @@ clean-druntime:
 clean: clean-druntime
 
 env-druntime:
+	@echo "----- $@ :: env"
 	@echo "CC =$(CC)"
 	@echo "OBJDC=$(OBJDC)"
+	@echo
+
+.PHONY: env-druntime
+
+env: env-druntime
+

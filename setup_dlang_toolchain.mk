@@ -28,9 +28,16 @@ install-dlang: $(DLANG_PATH)
 .PHONY: install-dlang
 
 env-dlang:
-	@echo "DLANG_PATH=$(DLANG_PATH)"
-	@echo "DLANG_INSTALL=$(DLANG_INSTALL)"
-	@echo "LDC_BIN=$(LDC_BIN)"
-	@echo "LDC_SOURCE=$(LDC_SOURCE)"
-	@echo "DC=$(DC)"
-	@echo "LDC_CONF=$(LDC_CONF)"
+	@echo "-----  $@ :: env"
+	@echo "DLANG_PATH        = $(DLANG_PATH)"
+	@echo "DLANG_INSTALL     = $(DLANG_INSTALL)"
+	@echo "LDC_BIN           = $(LDC_BIN)"
+	@echo "LDC_SOURCE        = $(LDC_SOURCE)"
+	@echo "DC                = $(DC)"
+	@echo "LDC_CONF          = $(LDC_CONF)"
+	@echo
+
+.PHONY: env-dlang
+
+env: env-dlang
+

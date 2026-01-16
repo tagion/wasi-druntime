@@ -42,12 +42,20 @@ run: wasm-run
 all: $(LIBS) $(MAIN)
 
 env-wasm:
-	@echo DFILES=$(DFILES)
-	@echo DOBJS=$(DOBJS)
-	@echo LIBS=$(LIBS)
-	@echo DFLAGS=$(DFLAGS)
-	@echo LDFLAGS=$(LDFLAGS)
-	@echo WASI_SDK_PREFIX=$(WASI_SDK_PREFIX)
+	@echo "----- $@ :: env"
+	@echo "DFILES        = $(DFILES)"
+	@echo "DOBJS         = $(DOBJS)"
+	@echo "LIBS          = $(LIBS)"
+	@echo "DFLAGS        = $(DFLAGS)"
+	@echo "LDFLAGS       = $(LDFLAGS)"
+	@echo "WASI_SDK_ROOT = $(WASI_SDK_ROOT)"
+	@echo "WASMLD        = $(WASMLD)"
+	@echo "DC            = $(DC)"
+	@echo
+
+.PHONY: env-wasm
+
+env: env-wasm
 
 wasm-run: $(MAIN)
 	wasmer $<
