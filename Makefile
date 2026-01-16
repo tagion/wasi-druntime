@@ -1,3 +1,7 @@
+.SUFFIXES:
+.ONESHELL:
+.SECONDARY:
+
 include git.mk
 include setup.mk
 
@@ -13,6 +17,8 @@ all:
 
 native:
 	$(MAKE) all NATIVE=1
+
+include setup_dlang_toolchain.mk
 
 include llvm.mk 
 
@@ -55,6 +61,7 @@ info:
 	@echo $@
 
 prebuild: subdate
+prebuild: install-dlang
 
 all: prebuild
 
@@ -67,7 +74,7 @@ run:
 	@echo "Done"
 
 subdate: $(REPOROOT)/.done
-	git submodule update --init --recursive 
+	#git submodule update --init --recursive 
 
 spull:
 	git pull --recurse-submodules

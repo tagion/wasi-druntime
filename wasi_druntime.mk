@@ -18,7 +18,10 @@ LIBDC:=$(LIB_DIR)/libdc.a
 LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
 LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 
-DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
+ifndef DC
+$(error compiler DC need to be defined)
+endif
+#DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi
 LIB_DFLAGS+=--output-o 
 LIB_DFLAGS+=-conf= 
@@ -92,16 +95,15 @@ ways: $(LIB_DIR)/.way
 
 $(COBJS)&: $(CFILES)| $(OBJ_DIR)/c/.way  
 	@echo C objects 
-	cd $(OBJ_DIR)/c; clang $^ -c $(CFLAGS) -Wno-implicit-function-declaration
+	cd $(OBJ_DIR)/c; $(CC) $^ -c $(CFLAGS) -Wno-implicit-function-declaration
 	#touch $@
 	
-
 $(OBJDC): $(OBJ_DIR)/c/.way 
-	cd $(OBJ_DIR)/c; clang $(CFLAGS) $(CFILES)
+	cd $(OBJ_DIR)/c; $(CC) $(CFLAGS) $(CFILES)
 
 #$(LIBDC): $(COBJS)
 #	ar -r $@ $< 
-	#cd $(OBJ_DIR)/c; clang $(CFLAGS) $(CFILES)
+	#cd $(OBJ_DIR)/c; $(CC) $(CFLAGS) $(CFILES)
 		
 
 $(LIB_DIR)/%.a: ways
@@ -129,4 +131,6 @@ clean-druntime:
 
 clean: clean-druntime
 
-
+env-druntime:
+	@echo "CC =$(CC)"
+	@echo "OBJDC=$(OBJDC)"
