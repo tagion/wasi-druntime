@@ -22,9 +22,9 @@ include setup_dlang_toolchain.mk
 
 include llvm.mk 
 
-include wasi_libc.mk
-
 include wasi_sdk.mk
+
+include wasi_libc.mk
 ifdef USE_LDC_BUILD_RUNTIME
 include ldc_runtime.mk
 else
