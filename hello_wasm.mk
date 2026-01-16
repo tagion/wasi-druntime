@@ -21,7 +21,8 @@ DFLAGS+=-flto=thin
 #LIBS+=$(addprefix $(OBJ_DIR),$($(call dfiles,$(PHOBOS_SRC)):.d=.o))
 LIBS+=$(LIB_DIR)/libdruntime-ldc.a
 LIBS+=$(LIB_DIR)/libphobos2-ldc.a
-LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
+LIB_WASI+=$(WASI_LIBC_BUILD)/sysroot/lib/wasm32-wasip1/libc.a
 #LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
 #LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
 #LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a

@@ -2,11 +2,6 @@
 .ONESHELL:
 .SECONDARY:
 
-
-WASM_AR:=$(WASI_BIN)/llvm-ar
-WASM_NM:=$(WASI_BIN)/llvm-nm
-WASM_CC:=$(WASI_BIN)/clang
-
 WASI_LIBC:=$(REPOROOT)/wasi-libc
 WASI_LIBC_BUILD:=$(WASI_LIBC)/build
 
@@ -19,7 +14,9 @@ $(WASI_LIBC_BUILD):
 	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
 env-wasi-libc:
-	@echo "CD = $(CC)"
+	@echo "CD              = $(CC)"
+	@echo "WASI_LIBC       = $(WASI_LIBC)"
+	@echo "WASI_LIBC_BUILD = $(WASI_LIBC_BUILD)"
 
 proper-wasi-libc:
 	@rm -fR $(WASI_LIBC_BUILD)
