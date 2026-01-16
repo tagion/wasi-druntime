@@ -32,13 +32,14 @@ wasi-sdk: $(WASI_SDK_PREFIX)/.done
 
 prebuild: wasi-sdk
 
-info-wasi-sdk:
+env-wasi-sdk:
 	@echo "Setup parameters for wasi-sdk"
 	@echo "WASI_BIN       =$(WASI_BIN)"
 	@echo "WASI_SDK       =$(WASI_SDK)"
 	@echo "WASI_SDK_PREFIX=$(WASI_SDK_ROOT)"
 	@echo "WASI_SDK_TGZ   =$(WASI_SDK_TGZ)"
 	@echo "WASI_SDK_URL   =$(WASI_SDK_URL)"
+	@echo "CC             =$(CC)"
 	@echo
 
 .PHONY: info-wasi-sdk
@@ -59,9 +60,9 @@ $(WASI_SDK_TGZ):
 clean-wasi-sdk:
 	rm -fR $(WASI_SDK_ROOT)
 
-.PHONY: clean-wasm-sdk
+.PHONY: clean-wasi-sdk
 
-clean: clean-wasm-sdk
+clean: clean-wasi-sdk
 
 proper-wasi-sdk:
 	@echo $@
