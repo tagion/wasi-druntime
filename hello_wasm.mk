@@ -21,10 +21,11 @@ DFLAGS+=-flto=thin
 #LIBS+=$(addprefix $(OBJ_DIR),$($(call dfiles,$(PHOBOS_SRC)):.d=.o))
 LIBS+=$(LIB_DIR)/libdruntime-ldc.a
 LIBS+=$(LIB_DIR)/libphobos2-ldc.a
-LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
-#LIB_WASI+=$(WASI_SDK_PREFIX)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libc.a
+LIB_WASI+=$(WASI_LIBC_BUILD)/sysroot/lib/wasm32-wasip1/libc.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/librt.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libdl.a
+#LIB_WASI+=$(WASI_SDK_ROOT)/share/wasi-sysroot/lib/wasm32-wasi/libpthread.a
 
 LDFLAGS+=--export=__data_end
 LDFLAGS+=--export=__heap_base
@@ -40,7 +41,7 @@ run: wasm-run
 
 all: $(LIBS) $(MAIN)
 
-wasm-env:
+env-wasm:
 	@echo DFILES=$(DFILES)
 	@echo DOBJS=$(DOBJS)
 	@echo LIBS=$(LIBS)
@@ -51,10 +52,13 @@ wasm-env:
 wasm-run: $(MAIN)
 	wasmer $<
 
+wasm: $(MAIN)
+
 $(MAIN): $(DOBJS) $(LIBS) 
 	$(WASMLD) $< $(LDFLAGS) $(LIBS) $(LIB_WASI)  -o $@
 
 $(DOBJS): $(DFILES)
+	source $(LDC_SOURCE)
 	$(DC) $< $(DFLAGS)
 
 CLEAN+=clean-test
