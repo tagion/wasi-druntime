@@ -39,6 +39,8 @@ run: $(LIBS)
 
 run: wasm-run
 
+$(MAIN): build-wasi-libc
+
 all: $(LIBS) $(MAIN)
 
 env-wasm:

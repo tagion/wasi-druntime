@@ -32,7 +32,7 @@ wasi-sdk: $(WASI_SDK_ROOT)/.done
 
 .PHONY: wasi-sdk
 
-prebuild: wasi-sdk
+prebuild: wasi-sdk build-wasi-libc
 
 env-wasi-sdk:
 	@echo "----- $@ :: env"
