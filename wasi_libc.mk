@@ -9,7 +9,7 @@ build-wasi-libc: $(WASI_LIBC_BUILD)
 	@$(MAKE) -j -C $(WASI_LIBC_BUILD)
 
 
-$(WASI_LIBC_BUILD):
+$(WASI_LIBC_BUILD): wasi-sdk
 	cd $(WASI_LIBC) 
 	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
