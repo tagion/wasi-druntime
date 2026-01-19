@@ -16,7 +16,7 @@ WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/$(WASI_S
 #https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sdk-20.0-linux.tar.gz
 #WASI_SDK_POSIX_PATCH=sed -i 's|set(CMAKE_SYSTEM_NAME Wasm)|set(CMAKE_SYSTEM_NAME Linux)|' $(WASI_SDK_ROOT)/share/cmake/wasi-sdk.cmake
 
-export WASI_SDK_ROOT=$(REPOROOT)/$(WASI_SDK)-x86_64-linux
+export WASI_SDK_ROOT=$(REPOROOT)/$(WASI_SDK)
 export WASI_BIN=$(WASI_SDK_ROOT)/bin
 export CC:=$(WASI_BIN)/clang
 
