@@ -30,8 +30,6 @@ help: help-wasi-sdk
 
 wasi-sdk: $(WASI_SDK_ROOT)/.done
 
-.PHONY: wasi-sdk
-
 prebuild: wasi-sdk build-wasi-libc
 
 env-wasi-sdk:
@@ -67,9 +65,9 @@ clean-wasi-sdk:
 
 .PHONY: clean-wasi-sdk
 
-clean: clean-wasi-sdk
+#clean: clean-wasi-sdk
 
-proper-wasi-sdk:
+proper-wasi-sdk: clean-wasi-sdk
 	@echo $@
 	rm -f $(WASI_SDK_TGZ)
 

@@ -35,11 +35,11 @@ LDFLAGS+=--allow-undefined
 #LDFLAGS+=-Wl,--fatal-warnings
 
 
-run: $(LIBS) 
+run: all 
 
 run: wasm-run
 
-$(MAIN): build-wasi-libc
+$(LIBS): build-wasi-libc wasi-sdk
 
 all: $(LIBS) $(MAIN)
 

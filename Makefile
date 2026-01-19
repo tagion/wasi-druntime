@@ -85,15 +85,4 @@ clean:
 clean-build:
 	rm -fR build
 
-ifdef NATIVE
 proper: clean clean-build
-
-else
-
-proper: clean clean-build
-	@echo $@
-	rm -fR build
-	rm -f $(REPOROOT)/.done
-	$(MAKE) NATIVE=1 proper
-	
-endif

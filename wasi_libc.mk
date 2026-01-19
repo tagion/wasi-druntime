@@ -5,12 +5,14 @@
 WASI_LIBC:=$(REPOROOT)/wasi-libc
 WASI_LIBC_BUILD:=$(WASI_LIBC)/build
 
-build-wasi-libc: $(WASI_LIBC_BUILD)
-	@$(MAKE) -j -C $(WASI_LIBC_BUILD)
+build-wasi-libc: $(WASI_LIBC_BUILD)/.done
 
+$(WASI_LIBC_BUILD)/.done: $(WASI_LIBC_BUILD)
+	@$(MAKE) -j -C $(WASI_LIBC_BUILD)
+	touch $@
 
 $(WASI_LIBC_BUILD): wasi-sdk
-	cd $(WASI_LIBC) 
+	@cd $(WASI_LIBC) 
 	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
 env-wasi-libc:
@@ -29,5 +31,5 @@ proper-wasi-libc:
 
 .PHONY: proper-wasi-libc
 
-prober: proper-wasi-libc
+proper: proper-wasi-libc
 
