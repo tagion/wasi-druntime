@@ -11,7 +11,11 @@ HELP+=help-main
 
 .PHONY: help info
 
+LDC_BIN_BUILD:=$(REPOROOT)/ldc/build/bin/ldc2
 
+ifneq ("$(wildcard $(LDC_BIN_BUILD))","")
+DC:=$(LDC_BIN_BUILD)
+endif
 
 all:
 

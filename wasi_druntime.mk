@@ -36,26 +36,48 @@ LIB_DFLAGS+=--lib
 LIB_DFLAGS+=-O3 -release -femit-local-var-lifetime 
 LIB_DFLAGS+=-flto=thin 
 
-WASI_FILTER+=-a -not -path "*/linux/*"
-WASI_FILTER+=-a -not -path "*/windows/*"
-WASI_FILTER+=-a -not -path "*/solaris/*"
-WASI_FILTER+=-a -not -path "*/openbsd/*"
+WASI_D_FILTER+=-a -not -path "*/linux/*"
+WASI_D_FILTER+=-a -not -path "*/windows/*"
+WASI_D_FILTER+=-a -not -path "*/solaris/*"
+WASI_D_FILTER+=-a -not -path "*/openbsd/*"
+WASI_D_FILTER+=-a -not -path "*/core/internal/gc/*"
+WASI_D_FILTER+=-a -not -path "*/core/thread/*"
+WASI_D_FILTER+=-a -not -path "*/core/sync/*"
 
-WASI_FILTER+=-a -not -path "*/experimental/*"
-WASI_FILTER+=-a -not -path "*/phobos/tools/*"
-WASI_FILTER+=-a -not -path "*/phobos/tools/*"
+WASI_D_FILTER+=-a -not -path "*/experimental/*"
+WASI_D_FILTER+=-a -not -path "*/phobos/tools/*"
+WASI_D_FILTER+=-a -not -path "*/phobos/std/net/*"
+WASI_D_FILTER+=-a -not -path "*/phobos/etc/c/*"
+WASI_D_FILTER+=-a -not -path "*/phobos/std/logger/*"
+WASI_D_FILTER+=-a -not -path "*/phobos/experimental/*"
 
-WASI_FILTER+=-a -not -path "*/tests/*"
-WASI_FILTER+=-a -not -path "*/test/*"
-WASI_FILTER+=-a -not -name "unittest.d"
-WASI_FILTER+=-a -not -name "eh_msvc.d"
-WASI_FILTER+=-a -not -name "dwarfeh.d"
-WASI_FILTER+=-a -not -name "dwarf.d"
-WASI_FILTER+=-a -not -name "test_runner.d"
+WASI_D_FILTER+=-a -not -path "*/tests/*"
+WASI_D_FILTER+=-a -not -path "*/test/*"
 
-cfiles=$(shell find $1 -name "*.c" -printf "%p ")
-#dfiles=$(shell find $1 -name "*.d" $(WASI_FILTER) -printf "%P ")
-dfiles=$(shell find $1 -name "*.d" $(WASI_FILTER) -printf "%P ")
+WASI_D_FILTER+=-a -not -name "unittest.d"
+WASI_D_FILTER+=-a -not -name "eh_msvc.d"
+WASI_D_FILTER+=-a -not -name "dwarfeh.d"
+WASI_D_FILTER+=-a -not -name "dwarf.d"
+WASI_D_FILTER+=-a -not -name "test_runner.d"
+WASI_D_FILTER+=-a -not -name "spinlock.d"
+WASI_D_FILTER+=-a -not -name "cover.d"
+WASI_D_FILTER+=-a -not -name "zlib.d"
+WASI_D_FILTER+=-a -not -name "zip.d"
+#WASI_D_FILTER+=-a -not -name "file.d"
+#WASI_D_FILTER+=-a -not -name "mmfile.d"
+WASI_D_FILTER+=-a -not -name "path.d"
+WASI_D_FILTER+=-a -not -name "parallelism.d"
+WASI_D_FILTER+=-a -not -name "concurrency.d"
+WASI_D_FILTER+=-a -not -name "uuid.d"
+WASI_D_FILTER+=-a -not -name "socket.d"
+WASI_D_FILTER+=-a -not -name "build_v3.d"
+
+WASI_C_FILTER+=-a -not -name "example.c"
+WASI_C_FILTER+=-a -not -path "*/zlib/*"
+
+cfiles=$(shell find $1 -name "*.c" $(WASI_C_FILTER) -printf "%p ")
+#dfiles=$(shell find $1 -name "*.d" $(WASI_D_FILTER) -printf "%P ")
+dfiles=$(shell find $1 -name "*.d" $(WASI_D_FILTER) -printf "%P ")
 #OBJDC=$($(call cfiles,$(PHOBOS_SRC)):.c=.o)
 CFILES:=$(call cfiles,$(PHOBOS_SRC))
 COBJS:=$(notdir $(CFILES))
@@ -113,16 +135,16 @@ $(LIB_DIR)/%.a: ways
 #	cd $(SRC_DIR); $(DC) $(LIB_DFLAGS) $(DINC) $(DFILES) -of $(LIB)
 
 check-druntime:
-	find $(DRUNTIME_SRC) -name "*.d" $(WASI_FILTER) -exec grep -nH _d_throw_exception {} \;
+	@find $(DRUNTIME_SRC) -name "*.d" $(WASI_D_FILTER) -exec grep -nH _d_throw_exception {} \;
 
 check-phobos:
-	find $(PHOBOS_SRC) -name "*.d" $(WASI_FILTER) -exec grep -nH _d_throw_exception {} \;
+	@find $(PHOBOS_SRC) -name "*.d" $(WASI_D_FILTER) -exec grep -nH "socket" {} \;
 
 dfiles-druntime:
-	find $(DRUNTIME_SRC) -name "*.d" $(WASI_FILTER) -printf "%P\n"
+	@find $(DRUNTIME_SRC) -name "*.d" $(WASI_D_FILTER) -printf "%P\n"
 
 dfiles-phobos:
-	find $(PHOBOS_SRC) -name "*.d" $(WASI_FILTER) -printf "%P\n"
+	@find $(PHOBOS_SRC) -name "*.d" $(WASI_D_FILTER) -printf "%P\n"
 
 clean-druntime:
 	rm -f $(LIB_DIR)/libdruntime-ldc.a
@@ -135,6 +157,10 @@ env-druntime:
 	@echo "----- $@ :: env"
 	@echo "CC =$(CC)"
 	@echo "OBJDC=$(OBJDC)"
+	@echo "COBJS=$(COBJS)"
+	@echo "LIBDC=$(LIBDC)"
+	@echo "CFILES = $(CFILES)"
+	@echo "OBJ_DIR = $(OBJ_DIR)"
 	@echo
 
 .PHONY: env-druntime
