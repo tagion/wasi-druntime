@@ -1,6 +1,6 @@
 # tools director
 TOOLS:=$(abspath $(REPOROOT)/tools)
-LDC_VERSION?=1.37.0
+LDC_VERSION?=1.41.0
 DLANG:=$(TOOLS)/dlang
 DLANG_INSTALL:=$(DLANG)/install.sh 
 DLANG_INSTALL_URL:=https://dlang.org/install.sh
