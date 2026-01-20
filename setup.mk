@@ -13,10 +13,4 @@ else
 	LDC_RUNTIME_ROOT?=ldc/runtime
 endif
 
-ifdef USE_LDC_BUILD_RUNTIME
-LDC_BUILD_RUNTIME?=$(shell which ldc-build-runtime)
-ifeq ($(LDC_BUILD_RUNTIME),)
-$(error missing ldc-build-runtime)
-endif
-endif
 

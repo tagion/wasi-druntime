@@ -29,7 +29,7 @@ include llvm.mk
 include wasi_libc.mk
 
 include wasi_sdk.mk
-ifdef USE_LDC_BUILD_RUNTIME
+ifdef NATIVE 
 include ldc_runtime.mk
 else
 include wasi_druntime.mk 

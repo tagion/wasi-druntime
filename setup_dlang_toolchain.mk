@@ -41,3 +41,5 @@ env-dlang:
 
 env: env-dlang
 
+uninstall-dlang:
+	rm -fR $(DLANG_PATH)
