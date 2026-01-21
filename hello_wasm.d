@@ -33,11 +33,39 @@ void __multi3(int, long, long, long, long) {
     printf("%s\n", &__FUNCTION__[0]);
     assert(0, "Not implemented");
 }
-    import rt.sections_wasm : tls_index;
+
+import rt.sections_wasm : tls_index;
 extern(C) void* __tls_get_addr(tls_index* ti) nothrow @nogc {
     return null;
 }
 }
+
+extern(C) int __eqtf2(long, long, long, long) {
+    printf("%s\n", &__FUNCTION__[0]);
+    return 0;
+}
+
+extern(C) int __unordtf2(long, long, long, long) {
+    printf("%s\n", &__FUNCTION__[0]);
+    return 0;
+}
+
+extern(C) int __getf2(long, long, long, long) {
+    printf("%s\n", &__FUNCTION__[0]);
+    return 0;
+}
+
+extern(C) int __gttf2(long, long, long, long) {
+    printf("%s\n", &__FUNCTION__[0]);
+    return 0;
+}
+
+extern(C) int __netf2(long, long, long, long) {
+    printf("%s\n", &__FUNCTION__[0]);
+    return 0;
+}
+
+
 
 extern(C) int _Dmain(char[][] args);
 extern(C) void _start() {

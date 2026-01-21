@@ -69,14 +69,6 @@ prebuild: install-dlang
 
 all: prebuild
 
-ifndef NATIVE
-all: run
-endif
-.PHONY: run
-
-run:
-	@echo "Done"
-
 subdate: $(REPOROOT)/.done
 	#git submodule update --init --recursive 
 
