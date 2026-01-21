@@ -40,27 +40,27 @@ extern(C) void* __tls_get_addr(tls_index* ti) nothrow @nogc {
 }
 }
 
-extern(C) int __eqtf2(long, long, long, long) {
+extern(C) int __eqtf2(long, long, long, long) @nogc {
     printf("%s\n", &__FUNCTION__[0]);
     return 0;
 }
 
-extern(C) int __unordtf2(long, long, long, long) {
+extern(C) int __unordtf2(long, long, long, long) @nogc {
     printf("%s\n", &__FUNCTION__[0]);
     return 0;
 }
 
-extern(C) int __getf2(long, long, long, long) {
+extern(C) int __getf2(long, long, long, long) @nogc {
     printf("%s\n", &__FUNCTION__[0]);
     return 0;
 }
 
-extern(C) int __gttf2(long, long, long, long) {
+extern(C) int __gttf2(long, long, long, long) @nogc {
     printf("%s\n", &__FUNCTION__[0]);
     return 0;
 }
 
-extern(C) int __netf2(long, long, long, long) {
+extern(C) int __netf2(long, long, long, long) @nogc {
     printf("%s\n", &__FUNCTION__[0]);
     return 0;
 }
@@ -79,7 +79,6 @@ extern(C) void _start() {
 //    main(0, null);
     //        main();
 }
-
 
 void main() {
     printf("In main\n");
