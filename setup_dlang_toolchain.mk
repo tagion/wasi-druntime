@@ -12,7 +12,7 @@ LDC:=$(LDC_BIN)/ldc2
 ifeq ("$(wildcard $(LDC))","")
 $(warning ---------------- )
 $(warning The ldc D compiler has not been installed)
-$(warning To install it execute)
+$(warning To install this execute)
 $(warning make install-dlang)
 $(warning or set LDC_BIN to the location of the ldc compiler)
 endif

@@ -20,12 +20,21 @@ export WASI_SDK_ROOT=$(REPOROOT)/$(WASI_SDK)-x86_64-linux
 export WASI_BIN=$(WASI_SDK_ROOT)/bin
 export CC:=$(WASI_BIN)/clang
 
+ifeq ("$(wildcard $(WASI_SDK_ROOT))","")
+$(warning ---------------- )
+$(warning wasi-sdk need to be installed)
+$(warning To install this execute)
+$(warning make install-wasi-sdk)
+endif
+
 help-wasi-sdk:
 	@echo "----- $@ : help"
 	@echo
-	@echo "make wasi-sdk       : install wasi-sdk version $(WASI_SDK_VERSION)"
+	@echo "make install-wasi-sdk       : install wasi-sdk version $(WASI_SDK_VERSION)"
 	@echo
 	@echo "make clean-wasi-sdk : removes wasi-sdk"
+	@echo
+	@echo "make proper-wasi-sdk : removes wasi-sdk and the downloads"
 	@echo
 
 .PHONY: help-wasi-sdk
@@ -33,7 +42,7 @@ help-wasi-sdk:
 help: help-wasi-sdk
 
 
-wasi-sdk: $(WASI_SDK_ROOT)/.done
+install-wasi-sdk: $(WASI_SDK_ROOT)/.done
 
 prebuild: wasi-sdk build-wasi-libc
 
