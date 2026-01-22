@@ -44,7 +44,7 @@ help: help-wasi-sdk
 
 install-wasi-sdk: $(WASI_SDK_ROOT)/.done
 
-prebuild: wasi-sdk build-wasi-libc
+prebuild: install-wasi-sdk build-wasi-libc
 
 env-wasi-sdk:
 	@echo "----- $@ :: env"

@@ -17,7 +17,7 @@ ifneq ("$(wildcard $(LDC_BIN_BUILD))","")
 DC:=$(LDC_BIN_BUILD)
 endif
 
-all:
+run:
 
 native:
 	$(MAKE) all NATIVE=1
