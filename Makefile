@@ -24,22 +24,22 @@ native:
 
 include setup_dlang_toolchain.mk
 
-include llvm.mk 
+#include llvm.mk 
 
 include wasi_libc.mk
 
 include wasi_sdk.mk
-ifdef NATIVE 
+#ifdef NATIVE 
 include ldc_runtime.mk
-else
+#else
 include wasi_druntime.mk 
 #all: libdruntime libphobos
-endif
+#endif
 
 include hello_wasm.mk
 
 help:
-	@echo "Usage " 
+	@echo "----- $@" 
 	@echo
 	@echo "make subdate   : If the repo been clone with out --recursive then run the"
 	@echo
@@ -57,6 +57,7 @@ help:
 	@echo
 	@echo "make clean     : Clean the build"
 	@echo
+
 
 %/.done:
 	touch $@

@@ -19,7 +19,9 @@ LIBPHOBOS2:=$(LIB_DIR)/libphobos2-ldc.a
 LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 
 ifndef DC
-$(error compiler DC need to be defined)
+$(warning To install the d-compiler run this command) 
+$(warning make install-dlang)
+#$(error compiler DC need to be defined)
 endif
 #DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2
 LIB_DFLAGS+=-mtriple=wasm32-unknown-wasi

@@ -15,6 +15,18 @@ $(WASI_LIBC_BUILD): wasi-sdk
 	@cd $(WASI_LIBC) 
 	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
+help-wasi-libc:
+	@echo "----- $@ : help"
+	@echo
+	@echo "make build-wasi-libc : Build wasi-libc"
+	@echo
+	@echo "make clean-wasi-libc : The wasi-libc build" 
+	@echo
+
+.PHONY: help-wasi-libc
+
+help: help-wasi-libc
+
 env-wasi-libc:
 	@ench "----- $@ :: env"
 	@echo "CD              = $(CC)"
@@ -26,10 +38,10 @@ env-wasi-libc:
 
 env: env-wasi-lib
 
-proper-wasi-libc:
+clean-wasi-libc:
 	@rm -fR $(WASI_LIBC_BUILD)
 
-.PHONY: proper-wasi-libc
+.PHONY: clean-wasi-libc
 
-proper: proper-wasi-libc
+proper: clean-wasi-libc
 

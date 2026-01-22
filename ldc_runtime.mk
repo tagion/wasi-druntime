@@ -4,7 +4,7 @@ LDC_ROOT:=$(REPOROOT)/ldc
 LDC_BUILD:=$(LDC_ROOT)/build
 
 help-ldc-runtime:
-	@echo "Usage $@"
+	@echo "----- $@ : help"
 	@echo
 	@echo make env-ldc-runtime - Print setting for the ldc-build-runtime
 	@echo
@@ -18,8 +18,9 @@ help: help-ldc-runtime
 
 env-ldc-runtime:
 	@echo "----- $@ :: env"
-	@echo "LDC_RUNTIME_ROOT=$(LDC_RUNTIME_ROOT)"
-	@echo "LDC_RUNTIME     =$(LDC_RUNTIME)"
+	@echo "LDC_RUNTIME_ROOT = $(LDC_RUNTIME_ROOT)"
+	@echo "LDC_RUNTIME      = $(LDC_RUNTIME)"
+	@echo "LDC_SOURCE       = $(LDC_SOURCE)"
 	@echo
 
 .PHONY: env-ldc-runtime

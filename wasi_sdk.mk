@@ -21,7 +21,12 @@ export WASI_BIN=$(WASI_SDK_ROOT)/bin
 export CC:=$(WASI_BIN)/clang
 
 help-wasi-sdk:
-	@echo $@
+	@echo "----- $@ : help"
+	@echo
+	@echo "make wasi-sdk       : install wasi-sdk version $(WASI_SDK_VERSION)"
+	@echo
+	@echo "make clean-wasi-sdk : removes wasi-sdk"
+	@echo
 
 .PHONY: help-wasi-sdk
 

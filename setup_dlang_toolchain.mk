@@ -6,12 +6,20 @@ DLANG_INSTALL:=$(DLANG)/install.sh
 DLANG_INSTALL_URL:=https://dlang.org/install.sh
 LDC_NAME:=ldc-$(LDC_VERSION)
 DLANG_PATH=$(HOME)/dlang/$(LDC_NAME)
-LDC_BIN:=$(DLANG_PATH)/bin
-LDC_WASI:=$(LDC_BIN)/ldc2
+LDC_BIN?=$(DLANG_PATH)/bin
+LDC:=$(LDC_BIN)/ldc2
+
+ifeq ("$(wildcard $(LDC))","")
+$(warning ---------------- )
+$(warning The ldc D compiler has not been installed)
+$(warning To install it execute)
+$(warning make install-dlang)
+$(warning or set LDC_BIN to the location of the ldc compiler)
+endif
 
 $(DLANG_INSTALL):
 	$(PRECMD)
-	$(MKDIR) -p $(DLANG)
+	mkdir -p $(DLANG)
 	wget $(DLANG_INSTALL_URL) -O $@
 	chmod 750 $@
 
@@ -22,66 +30,33 @@ $(DLANG_PATH): $(DLANG_INSTALL)
 
 install-dlang: $(DLANG_PATH)
 
-ifdef DONT
-LDC_HOST:=ldc2-${LDC_VERSION}-linux-x86_64
-LDC_HOST_TAR:=$(LDC_HOST).tar.xz
-LDC_WASI_BIN:=$(TOOLS)/$(LDC_HOST)/bin
-LDC_WASI:=$(LDC_WASI_BIN)/ldc2
-LDC_URL:=https://github.com/ldc-developers/ldc/releases/download/v${LDC_VERSION}
-LDC_URL_TAR:=$(LDC_URL)/${LDC_HOST_TAR}
 
-export DC=$(LDC_WASI)
+env-dlang:
+	@echo "----- $@ :: env"
+	@echo "LDC_VERSION       = $(LDC_VERSION)" 
+	@echo "LDC_NAME          = $(LDC_NAME)"
+	@echo "LDC               = $(LDC)"
+	@echo "LDC_BIN           = $(LDC_BIN)"
+	@echo "DLANG             = $(DLANG)"
+	@echo "DLANG_INSTALL     = $(DLANG_INSTALL)"
+	@echo "DLANG_INSTALL_URL = $(DLANG_INSTALL_URL)"
+	@echo "DLANG_PATH        = $(DLANG_PATH)"
+	@echo 
 
-install-wasi-wasm-toolchain: $(LDC_HOST) 
-.PHONY: install-wasi-wasm-toolchain
+.PHONY: env-dlang
 
-$(TOOLS)/.way:
-	mkdir -p $(TOOLS)
-	touch $(TOOLS)/.way
+env: env-install-dlang
 
-$(TOOLS)/$(LDC_HOST)/etc/ldc2.conf: $(TOOLS)/$(LDC_HOST)/.done tub/ldc2.conf
-	mv $(TOOLS)/$(LDC_HOST)/etc/ldc2.conf $(TOOLS)/$(LDC_HOST)/etc/ldc2.conf.orig || true
-	cp tub/ldc2.conf $(TOOLS)/$(LDC_HOST)/etc/ldc2.conf
+help-dlang:
+	@echo "----- $@ : help"
+	@echo
+	@echo "make install-dlang Install the D compiler"
+	@echo
+	@echo "make env-dlang List the environment" 
+	@echo
 
-$(LDC_HOST): $(TOOLS)/$(LDC_HOST)/.done
-$(LDC_HOST): $(TOOLS)/$(LDC_HOST)/etc/ldc2.conf
-.PHONY: $(LDC_HOST)
+.PHONY: help-dlang
 
-$(TOOLS)/$(LDC_HOST)/.done: $(TOOLS)/.way
-	cd $(TOOLS)
-	wget ${LDC_URL_TAR} -O ${LDC_HOST_TAR}
-	tar xf $(LDC_HOST_TAR)
-	touch $@
+help: help-dlang
 
-clean-tools:
-	$(RM) -vr $(TOOLS)
 
-.PHONY: clean-tools
-
-env-install-wasi:
-	$(PRECMD)
-	$(call log.header, $@ :: env)
-	$(call log.kvp, LDC_VERSION, $(LDC_VERSION)) 
-	$(call log.kvp, LDC_URL_TAR, $(LDC_URL_TAR))
-	$(call log.kvp, LDC_WASI_BIN, $(LDC_WASI_BIN))
-	$(call log.kvp, LDC_WASI, $(LDC_WASI))
-	$(call log.close)
-
-.PHONY: env-install-wasi
-
-env: env-install-wasi
-
-help-install-wasi:
-	$(PRECMD)
-	$(call log.header, $@ :: help)
-	$(call log.help, "make help-install-wasi", "Will show this help text")
-	$(call log.help, "make install-wasi-wasm-toolchain", "Install the LDC2 compiler and wasi library")
-	$(call log.help, "make clean-tools", "Remove the tool chain")
-	$(call log.close)
-
-.PHONY: help-install-wasi
-
-help: help-install-wasi
-
-proper: clean-tools
-endif

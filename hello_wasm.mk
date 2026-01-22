@@ -1,6 +1,6 @@
 
 WASMLD?=$(WASI_BIN)/wasm-ld
-DC?=ldc2
+#DC?=ldc2
 
 MAIN:=hello_wasm.wasm
 DFILES+=hello_wasm.d
