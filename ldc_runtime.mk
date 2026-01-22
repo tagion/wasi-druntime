@@ -27,7 +27,7 @@ env-ldc-runtime:
 
 .PHONY: env-ldc-runtime
 
-
+ifeq ("$(wildcard $(LDC_BUILD))","")
 build-ldc: ./build_ldc.sh 
 	@echo "Run $< to compile the ldc compiler"
 
@@ -43,6 +43,10 @@ build-ldc: ./build_ldc.sh
 	cmake -S. -Bbuild && cmake --build build
 	EOF
 	chmod 750 $@
+else
+build-ldc:
+	@echo "All has been install and build"
+endif
 
 #export LDC_CONF_TEXT=$(LDC_CONF)
 
