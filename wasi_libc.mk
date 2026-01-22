@@ -11,7 +11,7 @@ $(WASI_LIBC_BUILD)/.done: $(WASI_LIBC_BUILD)
 	@$(MAKE) -j -C $(WASI_LIBC_BUILD)
 	touch $@
 
-$(WASI_LIBC_BUILD): wasi-sdk
+$(WASI_LIBC_BUILD): install-wasi-sdk
 	@cd $(WASI_LIBC) 
 	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
@@ -28,7 +28,7 @@ help-wasi-libc:
 help: help-wasi-libc
 
 env-wasi-libc:
-	@ench "----- $@ :: env"
+	@echo "----- $@ :: env"
 	@echo "CD              = $(CC)"
 	@echo "WASI_LIBC       = $(WASI_LIBC)"
 	@echo "WASI_LIBC_BUILD = $(WASI_LIBC_BUILD)"
