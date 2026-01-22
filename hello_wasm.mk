@@ -39,7 +39,7 @@ run: all
 
 run: wasm-run
 
-$(LIBS): build-wasi-libc wasi-sdk
+$(LIBS): build-wasi-libc install-wasi-sdk
 
 all: $(LIBS) $(MAIN)
 

@@ -83,3 +83,11 @@ clean-build:
 	rm -fR build
 
 proper: clean clean-build
+
+install-dlang: install-wasi-sdk
+
+build-wasi-libc: install-dlang
+
+build-ldc: build-wasi-libc
+
+install: build-ldc

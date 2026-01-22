@@ -19,3 +19,6 @@ ldc-build-runtime.*
 
 *.o
 .done
+
+build_ldc.sh
+

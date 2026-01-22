@@ -21,6 +21,8 @@ LIBDRUNTIME:=$(LIB_DIR)/libdruntime-ldc.a
 ifndef DC
 $(warning To install the d-compiler run this command) 
 $(warning make install)
+$(warning and)
+
 #$(error compiler DC need to be defined)
 endif
 #DC!=which ldc2 || /home/carsten/bin/ldc2-1.36.0-linux-x86_64/bin/ldc2

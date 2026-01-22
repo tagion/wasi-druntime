@@ -2,9 +2,6 @@
 
 export LDC_ROOT:=$(REPOROOT)/ldc
 export LDC_BUILD:=$(LDC_ROOT)/build
-export LDC_SOURCE
-export DLANG_PATH
-
 
 help-ldc-runtime:
 	@echo "----- $@ : help"
@@ -31,13 +28,10 @@ env-ldc-runtime:
 .PHONY: env-ldc-runtime
 
 
-build-ldc: $(LDC_BUILD)/.done
+build-ldc: ./build_ldc.sh 
+	@echo "Run $< to compile the ldc compiler"
 
-$(LDC_BUILD)/.done: x_build_ldc.sh
-	@./$<
-	#touch $@
-
-x_build_ldc.sh:
+./build_ldc.sh:
 	@cat << EOF > $@
 	#!/bin/bash
 	export LDC_SOURCE=$(LDC_SOURCE)
