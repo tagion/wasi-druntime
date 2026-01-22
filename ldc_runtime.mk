@@ -1,7 +1,10 @@
 
 
-LDC_ROOT:=$(REPOROOT)/ldc
-LDC_BUILD:=$(LDC_ROOT)/build
+export LDC_ROOT:=$(REPOROOT)/ldc
+export LDC_BUILD:=$(LDC_ROOT)/build
+export LDC_SOURCE
+export DLANG_PATH
+
 
 help-ldc-runtime:
 	@echo "----- $@ : help"
@@ -20,33 +23,32 @@ env-ldc-runtime:
 	@echo "----- $@ :: env"
 	@echo "LDC_RUNTIME_ROOT = $(LDC_RUNTIME_ROOT)"
 	@echo "LDC_RUNTIME      = $(LDC_RUNTIME)"
+	@echo "LDC_ROOT         = $(LDC_ROOT)"
+	@echo "LDC_BUILD        = $(LDC_BUILD)"
 	@echo "LDC_SOURCE       = $(LDC_SOURCE)"
 	@echo
 
 .PHONY: env-ldc-runtime
 
 
-
-
-#prebuild: $(RUNTIME_BUILD)/.done
-
-#$(RUNTIME_BUILD)/.done:
-#	ldc-build-runtime $(LDC_RUNTIME)
-#	touch $@
-
-
 build-ldc: $(LDC_BUILD)/.done
 
-$(LDC_BUILD)/.done:
-	@cd $(LDC_ROOT)
-	source $(LDC_SOURCE)
-	which ldc2
-	which wasm-ld
-	cmake -S. -Bbuild && cmake --build build
+$(LDC_BUILD)/.done: x_build_ldc.sh
+	@./$<
 	#touch $@
 
-test77:
-	echo $@
+x_build_ldc.sh:
+	@cat << EOF > $@
+	#!/bin/bash
+	export LDC_SOURCE=$(LDC_SOURCE)
+	export LDC_BUILD=$(LDC_BUILD)
+	export LDC_ROOT=$(LDC_ROOT)
+	export DLANG_PATH=$(DLANG_PATH)
+	. $(LDC_SOURCE)
+	cd $(LDC_ROOT)
+	cmake -S. -Bbuild && cmake --build build
+	EOF
+	chmod 750 $@
 
 #export LDC_CONF_TEXT=$(LDC_CONF)
 

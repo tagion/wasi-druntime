@@ -6,6 +6,7 @@ DLANG_INSTALL:=$(DLANG)/install.sh
 DLANG_INSTALL_URL:=https://dlang.org/install.sh
 LDC_NAME:=ldc-$(LDC_VERSION)
 DLANG_PATH=$(HOME)/dlang/$(LDC_NAME)
+LDC_SOURCE=$(DLANG_PATH)/activate
 LDC_BIN?=$(DLANG_PATH)/bin
 LDC:=$(LDC_BIN)/ldc2
 
