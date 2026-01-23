@@ -3,6 +3,7 @@
 export LDC_ROOT:=$(REPOROOT)/ldc
 export LDC_BUILD:=$(LDC_ROOT)/build
 
+CMAKE_PARALLEL?=4
 help-ldc-runtime:
 	@echo "----- $@ : help"
 	@echo
@@ -45,7 +46,7 @@ build-ldc: ./build_ldc.sh
 	cd $(LDC_ROOT)
 	pwd
 	ldd $(LDC)
-	cmake -S. -Bbuild && cmake --build build
+	cmake -S. -Bbuild && cmake --build build -j $(CMAKE_PARALLEL)
 	EOF
 	chmod 750 $@
 

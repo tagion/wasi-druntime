@@ -22,3 +22,5 @@ ldc-build-runtime.*
 
 build_ldc.sh
 
+*.log
+
