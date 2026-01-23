@@ -19,7 +19,6 @@ help: help-ldc-runtime
 env-ldc-runtime:
 	@echo "----- $@ :: env"
 	@echo "LDC_RUNTIME_ROOT = $(LDC_RUNTIME_ROOT)"
-	@echo "LDC_RUNTIME      = $(LDC_RUNTIME)"
 	@echo "LDC_ROOT         = $(LDC_ROOT)"
 	@echo "LDC_BUILD        = $(LDC_BUILD)"
 	@echo "LDC_SOURCE       = $(LDC_SOURCE)"
@@ -27,9 +26,9 @@ env-ldc-runtime:
 
 .PHONY: env-ldc-runtime
 
-ifeq ("$(wildcard $(LDC_BUILD))","")
+env: env-ldc-runtime
+
 build-ldc: ./build_ldc.sh 
-	@echo "Run $< to compile the ldc compiler"
 
 ./build_ldc.sh:
 	@cat << EOF > $@
@@ -38,15 +37,17 @@ build-ldc: ./build_ldc.sh
 	export LDC_BUILD=$(LDC_BUILD)
 	export LDC_ROOT=$(LDC_ROOT)
 	export DLANG_PATH=$(DLANG_PATH)
+	unset WASI_BIN
+	unset WASI_SDK_ROOT
+	echo "LDC_SOURCE = $(LDC_SOURCE)"
+	env | sort > build_env.log
 	. $(LDC_SOURCE)
 	cd $(LDC_ROOT)
+	pwd
+	ldd $(LDC)
 	cmake -S. -Bbuild && cmake --build build
 	EOF
 	chmod 750 $@
-else
-build-ldc:
-	@echo "All has been install and build"
-endif
 
 #export LDC_CONF_TEXT=$(LDC_CONF)
 

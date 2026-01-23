@@ -46,7 +46,7 @@ env-dlang:
 
 .PHONY: env-dlang
 
-env: env-install-dlang
+env: env-dlang
 
 help-dlang:
 	@echo "----- $@ : help"
