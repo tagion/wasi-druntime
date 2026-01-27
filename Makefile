@@ -86,11 +86,14 @@ clean-build:
 
 proper: clean clean-build
 
+install-wasi-sdk: install-cmake
+
 install-dlang: install-wasi-sdk
 
 build-wasi-libc: install-dlang
 
 build-ldc: build-wasi-libc
-build-ldc: install-cmake 
 
 install: build-ldc
+	cd /tmp
+	ls -tral| tail -10
