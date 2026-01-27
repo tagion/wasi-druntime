@@ -13,7 +13,7 @@ $(WASI_LIBC_BUILD)/.done: $(WASI_LIBC_BUILD)
 
 $(WASI_LIBC_BUILD): install-wasi-sdk
 	@cd $(WASI_LIBC) 
-	cmake cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
+	$(CMAKE) cmake -S . -B build -DCMAKE_C_COMPILER=$(CC)
 
 help-wasi-libc:
 	@echo "----- $@ : help"

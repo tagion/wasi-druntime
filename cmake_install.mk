@@ -7,6 +7,8 @@ CMAKE_TMP:=/tmp
 CMAKE_URL:=https://cmake.org/files/v$(CMAKE_VERSION)/$(CMAKE_FILE_TGZ)
 CMAKE_ROOT:=$(CMAKE_TMP)/$(CMAKE_INSTALLATION)
 CMAKE:=$(CMAKE_ROOT)/bin/cmake
+
+export PATH:=$(CMAKE_ROOT)/bin/:$(PATH)
 ## don't modify from here
 #mkdir ~/temp
 
@@ -30,6 +32,7 @@ env-cmake:
 	@echo "CMAKE_FILE_TGZ         = $(CMAKE_FILE_TGZ)"
 	@echo "CMAKE_ROOT             = $(CMAKE_ROOT)"
 	@echo "CMAKE                  = $(CMAKE)"
+	@echo "PATH                   = $(PATH)"
 	@echo 
 
 .PHONY: env-cmake
