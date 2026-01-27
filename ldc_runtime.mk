@@ -45,22 +45,11 @@ build-ldc: ./build_ldc.sh
 	. $(LDC_SOURCE)
 	cd $(LDC_ROOT)
 	pwd
-	ldd $(LDC)
+	$(LDC) --version|head -4
+	$(CMAKE) --version| head -4
 	$(CMAKE) -S. -Bbuild && $(CMAKE) --build build -j $(CMAKE_PARALLEL)
 	EOF
 	chmod 750 $@
-
-#export LDC_CONF_TEXT=$(LDC_CONF)
-
-#ldc2-conf: $(RUNTIME_BUILD)/ldc2.conf
-#	@echo $<
-
-
-#$(RUNTIME_BUILD)/ldc2.conf:
-#	@echo "$${LDC_CONF_TEXT}" > $@
-
-
-#CLEAN+=clean-ldc-runtime
 
 clean-ldc-runtime:
 	@echo "clean $@"
