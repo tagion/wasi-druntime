@@ -46,7 +46,7 @@ build-ldc: ./build_ldc.sh
 	cd $(LDC_ROOT)
 	pwd
 	ldd $(LDC)
-	cmake -S. -Bbuild && cmake --build build -j $(CMAKE_PARALLEL)
+	$(CMAKE) -S. -Bbuild && $(CMAKE) --build build -j $(CMAKE_PARALLEL)
 	EOF
 	chmod 750 $@
 

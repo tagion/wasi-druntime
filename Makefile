@@ -36,6 +36,8 @@ include wasi_druntime.mk
 #all: libdruntime libphobos
 #endif
 
+include cmake_install.mk
+
 include hello_wasm.mk
 
 help:
@@ -89,5 +91,6 @@ install-dlang: install-wasi-sdk
 build-wasi-libc: install-dlang
 
 build-ldc: build-wasi-libc
+build-ldc: install-cmake 
 
 install: build-ldc
