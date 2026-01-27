@@ -19,6 +19,7 @@ WASI_SDK_URL:=https://github.com/WebAssembly/wasi-sdk/releases/download/$(WASI_S
 export WASI_SDK_ROOT=$(REPOROOT)/$(WASI_SDK)-x86_64-linux
 export WASI_BIN=$(WASI_SDK_ROOT)/bin
 export CC:=$(WASI_BIN)/clang
+export CPP:=$(WASI_BIN)/clang++
 
 ifeq ("$(wildcard $(WASI_SDK_ROOT))","")
 $(warning ---------------- )

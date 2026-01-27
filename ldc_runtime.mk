@@ -38,6 +38,8 @@ build-ldc: ./build_ldc.sh
 	export LDC_BUILD=$(LDC_BUILD)
 	export LDC_ROOT=$(LDC_ROOT)
 	export DLANG_PATH=$(DLANG_PATH)
+	export CD=$(CC)
+	export CPP=$(CPP)
 	unset WASI_BIN
 	unset WASI_SDK_ROOT
 	echo "LDC_SOURCE = $(LDC_SOURCE)"
